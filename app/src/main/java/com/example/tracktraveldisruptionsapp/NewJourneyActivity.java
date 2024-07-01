@@ -1,5 +1,6 @@
 package com.example.tracktraveldisruptionsapp;
 
+import android.content.res.AssetManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -19,6 +20,7 @@ import com.example.tracktraveldisruptionsapp.model.StationList;
 import com.example.tracktraveldisruptionsapp.resources.utils;
 import com.google.gson.Gson;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,12 +60,22 @@ public class NewJourneyActivity extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
+        BufferedReader br;
+        try {
+            AssetManager assetManager = getAssets();
+            InputStream inputStream = assetManager.open("uk-train-stations.json");
+            br = new BufferedReader(new InputStreamReader(inputStream));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Station[] station = new Gson().fromJson(br, Station[].class);
+
         // Initialize and assign variable
         EditText editText = dialog.findViewById(R.id.edit_text);
         ListView listView = dialog.findViewById(R.id.list_view);
 
         // Initialize array adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(NewJourneyActivity.this, android.R.layout.simple_list_item_1, arrayList);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(NewJourneyActivity.this, android.R.layout.simple_list_item_1, Arrays.stream(station).map(Station::getStation_name).toArray(String[]::new));
         listView.setAdapter(adapter);
 
         editText.addTextChangedListener(new TextWatcher() {
@@ -85,8 +97,7 @@ public class NewJourneyActivity extends AppCompatActivity {
             // Dismiss dialog
             dialog.dismiss();
 
-            String str = utils.fileToString("java/com/example/tracktraveldisruptionsapp/resources/uk-train-stations.json");
-            Station station = new Gson().fromJson(str, Station.class);
+
 
         });
     }
