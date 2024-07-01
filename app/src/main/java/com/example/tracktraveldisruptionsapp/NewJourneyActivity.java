@@ -49,6 +49,7 @@ public class NewJourneyActivity extends AppCompatActivity {
         ));
 
         binding.fromInput.setOnClickListener(v -> showDialog());
+        binding.toInput.setOnClickListener(v -> showDialog());
     }
 
     private void showDialog() {
@@ -92,8 +93,12 @@ public class NewJourneyActivity extends AppCompatActivity {
         });
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            // Set selected item on TextView
-            binding.fromInput.setText(adapter.getItem(position));
+
+                // Set selected item on TextView
+                binding.fromInput.setText(adapter.getItem(position));
+
+                binding.toInput.setText(adapter.getItem(position));
+
             // Dismiss dialog
             dialog.dismiss();
 
