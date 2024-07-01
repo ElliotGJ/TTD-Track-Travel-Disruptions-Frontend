@@ -14,9 +14,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.tracktraveldisruptionsapp.databinding.ActivityStationSelectionBinding;
+import com.example.tracktraveldisruptionsapp.model.Station;
+import com.example.tracktraveldisruptionsapp.model.StationList;
+import com.example.tracktraveldisruptionsapp.resources.utils;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class NewJourneyActivity extends AppCompatActivity {
 
@@ -79,6 +84,10 @@ public class NewJourneyActivity extends AppCompatActivity {
             binding.fromInput.setText(adapter.getItem(position));
             // Dismiss dialog
             dialog.dismiss();
+
+            String str = utils.fileToString("java/com/example/tracktraveldisruptionsapp/resources/uk-train-stations.json");
+            Station station = new Gson().fromJson(str, Station.class);
+
         });
     }
 }
