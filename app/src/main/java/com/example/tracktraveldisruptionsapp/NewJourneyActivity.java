@@ -14,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import androidx.databinding.DataBindingUtil;
+import com.example.tracktraveldisruptionsapp.databinding.ActivityNewJourneyBinding;
 
 import java.util.ArrayList;
 
@@ -23,10 +25,13 @@ public class NewJourneyActivity extends AppCompatActivity {
     TextView textview;
     ArrayList<String> arrayList;
     Dialog dialog;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    MainActivity mainActivity;
+    ActivityNewJourneyBinding binding;
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_station_selection);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_station_selection);
+
 
         // assign variable
         textview=findViewById(R.id.from_input);
