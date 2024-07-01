@@ -1,6 +1,7 @@
 package com.example.tracktraveldisruptionsapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -8,103 +9,76 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import androidx.databinding.DataBindingUtil;
-import com.example.tracktraveldisruptionsapp.databinding.ActivityNewJourneyBinding;
+
+import com.example.tracktraveldisruptionsapp.databinding.ActivityStationSelectionBinding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class NewJourneyActivity extends AppCompatActivity {
 
-    // Initialize variable
-    TextView textview;
-    ArrayList<String> arrayList;
-    Dialog dialog;
-    MainActivity mainActivity;
-    ActivityNewJourneyBinding binding;
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
+    private ActivityStationSelectionBinding binding;
+    private ArrayList<String> arrayList;
+    private Dialog dialog;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_station_selection);
 
+        // Initialize array list
+        arrayList = new ArrayList<>(Arrays.asList(
+                getString(R.string.dsa_self_paced),
+                getString(R.string.complete_interview_prep),
+                getString(R.string.amazon_sde_test_series),
+                getString(R.string.compiler_design),
+                getString(R.string.git_github),
+                getString(R.string.python_foundation),
+                getString(R.string.operating_systems),
+                getString(R.string.theory_of_computation)
+        ));
 
-        // assign variable
-        textview=findViewById(R.id.from_input);
+        binding.fromInput.setOnClickListener(v -> showDialog());
+    }
 
-        // initialize array list
-        arrayList=new ArrayList<>();
+    private void showDialog() {
+        dialog = new Dialog(NewJourneyActivity.this);
 
-        // set value in array list
-        arrayList.add("DSA Self Paced");
-        arrayList.add("Complete Interview Prep");
-        arrayList.add("Amazon SDE Test Series");
-        arrayList.add("Compiler Design");
-        arrayList.add("Git & Github");
-        arrayList.add("Python foundation");
-        arrayList.add("Operating systems");
-        arrayList.add("Theory of Computation");
+        // Set custom dialog
+        dialog.setContentView(R.layout.dialog_searchable_spinner);
+        dialog.getWindow().setLayout(650, 800);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
 
-        textview.setOnClickListener(new View.OnClickListener() {
+        // Initialize and assign variable
+        EditText editText = dialog.findViewById(R.id.edit_text);
+        ListView listView = dialog.findViewById(R.id.list_view);
+
+        // Initialize array adapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(NewJourneyActivity.this, android.R.layout.simple_list_item_1, arrayList);
+        listView.setAdapter(adapter);
+
+        editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                // Initialize dialog
-                dialog=new Dialog(NewJourneyActivity.this);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
-                // set custom dialog
-                dialog.setContentView(R.layout.dialog_searchable_spinner);
-
-                // set custom height and width
-                dialog.getWindow().setLayout(650,800);
-
-                // set transparent background
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                // show dialog
-                dialog.show();
-
-                // Initialize and assign variable
-                EditText editText=dialog.findViewById(R.id.edit_text);
-                ListView listView=dialog.findViewById(R.id.list_view);
-
-                // Initialize array adapter
-                ArrayAdapter<String> adapter=new ArrayAdapter<>(NewJourneyActivity.this, android.R.layout.simple_list_item_1,arrayList);
-
-                // set adapter
-                listView.setAdapter(adapter);
-                editText.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        adapter.getFilter().filter(s);
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-
-                    }
-                });
-
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        // when item selected from list
-                        // set selected item on textView
-                        textview.setText(adapter.getItem(position));
-
-                        // Dismiss dialog
-                        dialog.dismiss();
-                    }
-                });
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.getFilter().filter(s);
             }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            // Set selected item on TextView
+            binding.fromInput.setText(adapter.getItem(position));
+            // Dismiss dialog
+            dialog.dismiss();
         });
     }
 }
