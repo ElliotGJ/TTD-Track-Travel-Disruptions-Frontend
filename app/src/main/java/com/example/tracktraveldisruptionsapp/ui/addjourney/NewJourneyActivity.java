@@ -1,7 +1,7 @@
-package com.example.tracktraveldisruptionsapp;
+package com.example.tracktraveldisruptionsapp.ui.addjourney;
 
 import android.content.res.AssetManager;
-import android.util.Log;
+import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -16,10 +16,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.lifecycle.ViewModelProvider;
+import com.example.tracktraveldisruptionsapp.R;
 import com.example.tracktraveldisruptionsapp.databinding.ActivityStationSelectionBinding;
 import com.example.tracktraveldisruptionsapp.model.Station;
-import com.example.tracktraveldisruptionsapp.ui.addjourney.AddJourneyClickHandlers;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivityViewModel;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 
 import java.io.*;
@@ -50,6 +52,17 @@ public class NewJourneyActivity extends AppCompatActivity {
 
         MainActivityViewModel viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         AddJourneyClickHandlers clickHandlers = new AddJourneyClickHandlers(departure,destination,this,viewModel);
+
+        FloatingActionButton backBtn = findViewById(R.id.fab_back);
+        backBtn.setOnClickListener(clickHandlers::backButton);
+
+        ExtendedFloatingActionButton submitBtn = findViewById(R.id.button_next);
+        submitBtn.setOnClickListener(clickHandlers::submitButton);
+
+        Button timeBtn = findViewById(R.id.departure_time_input);
+        timeBtn.setOnClickListener(view -> clickHandlers.setTime(view,timeBtn));
+
+
 
         binding.fromInput.setOnClickListener(v -> {
             isInputClicked = true;
@@ -106,13 +119,13 @@ public class NewJourneyActivity extends AppCompatActivity {
             if(isInputClicked)
             // Set selected item on TextView
             {
-                Log.d("Departure", adapter.getItem(position).getCrs());
-                binding.fromInput.setText(adapter.getItem(position).getStation_name());
+
+                binding.fromInput.setText("  "+adapter.getItem(position).getStation_name());
                 departure = adapter.getItem(position);
             } else {
-                Log.d("Destination", adapter.getItem(position).getCrs());
+
                 destination = adapter.getItem(position);
-                binding.toInput.setText(adapter.getItem(position).getStation_name());
+                binding.toInput.setText("  "+adapter.getItem(position).getStation_name());
 
             }
 
