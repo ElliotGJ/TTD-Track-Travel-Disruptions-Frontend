@@ -320,7 +320,7 @@
                 android:layout_margin="16dp"
                 android:text="Next"
                 android:backgroundTint="#7DE09D"
-                android:textColor="@android:color/white"
+                android:textColor="#5B3198"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 

@@ -30,6 +30,7 @@ public class NewJourneyActivity extends AppCompatActivity {
     private ActivityStationSelectionBinding binding;
     private ArrayList<String> arrayList;
     private Dialog dialog;
+    private boolean isInputClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +49,14 @@ public class NewJourneyActivity extends AppCompatActivity {
                 getString(R.string.theory_of_computation)
         ));
 
-        binding.fromInput.setOnClickListener(v -> showDialog());
-        binding.toInput.setOnClickListener(v -> showDialog());
+        binding.fromInput.setOnClickListener(v -> {
+            isInputClicked = true;
+            showDialog();
+        });
+        binding.toInput.setOnClickListener(v -> {
+            isInputClicked = false;
+            showDialog();
+        });
     }
 
     private void showDialog() {
@@ -93,11 +100,15 @@ public class NewJourneyActivity extends AppCompatActivity {
         });
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
-
-                // Set selected item on TextView
+            // checks if input is clicked then updates the correct text view
+            if(isInputClicked)
+            // Set selected item on TextView
+            {
                 binding.fromInput.setText(adapter.getItem(position));
+            } else {
 
-                binding.toInput.setText(adapter.getItem(position));
+            binding.toInput.setText(adapter.getItem(position));
+            }
 
             // Dismiss dialog
             dialog.dismiss();
