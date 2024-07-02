@@ -54,7 +54,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="450dp"
-                    android:padding="8dp">
+                    android:padding="4dp">
 
                 <LinearLayout
                         android:id="@+id/starting"
@@ -150,6 +150,7 @@
                         android:id="@+id/departure_time_input"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:hint="HH:MM"
                         android:inputType="time"/>
             </LinearLayout>
@@ -181,12 +182,12 @@
                     app:layout_constraintTop_toBottomOf="@id/week"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
-                    android:gravity="center"
+                    android:gravity=""
                     android:layout_height="wrap_content">
 
                 <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:text="M"
                         android:gravity="center"
                         android:textSize="20sp"
@@ -197,8 +198,8 @@
                         android:layout_marginEnd="8dp"/>
 
                 <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:text="T"
                         android:gravity="center"
                         android:textSize="20sp"
@@ -208,8 +209,8 @@
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
                 <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:text="W"
                         android:gravity="center"
                         android:textSize="20sp"
@@ -219,8 +220,8 @@
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
                 <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:text="T"
                         android:gravity="center"
                         android:textSize="20sp"
@@ -230,8 +231,8 @@
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
                 <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:text="F"
                         android:gravity="center"
                         android:textSize="20sp"
@@ -241,8 +242,8 @@
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
                 <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:text="S"
                         android:gravity="center"
                         android:textSize="20sp"
@@ -252,8 +253,8 @@
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
                 <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:text="S"
                         android:gravity="center"
                         android:textSize="20sp"
@@ -326,7 +327,7 @@
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:backgroundTint="#7DE09D"
+                app:backgroundTint="#38A3A5"
                 android:src="@android:drawable/ic_menu_revert"/>
 
         <Button
@@ -335,7 +336,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="Next"
-                android:backgroundTint="#7DE09D"
+                android:backgroundTint="#38A3A5"
                 android:textColor="#5B3198"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
