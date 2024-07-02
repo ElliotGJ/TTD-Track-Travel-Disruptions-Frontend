@@ -1,11 +1,13 @@
 package com.example.tracktraveldisruptionsapp.model;
 
 
+import org.jetbrains.annotations.NotNull;
+
 public class Station {
 
     private String station_name;
 
-    private String csr;
+    private String crs;
 
     private Double latitude;
 
@@ -19,12 +21,12 @@ public class Station {
         this.station_name = station_name;
     }
 
-    public String getCsr() {
-        return csr;
+    public String getCrs() {
+        return crs;
     }
 
-    public void setCsr(String csr) {
-        this.csr = csr;
+    public void setCrs(String crs) {
+        this.crs = crs;
     }
 
     public Double getLatitude() {
@@ -41,5 +43,11 @@ public class Station {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    @NotNull
+    @Override
+    public String toString(){
+        return this.station_name;
     }
 }

@@ -2,6 +2,7 @@ package com.example.tracktraveldisruptionsapp.model;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 import androidx.lifecycle.MutableLiveData;
 import com.example.tracktraveldisruptionsapp.service.RetrofitInstance;
 import com.example.tracktraveldisruptionsapp.service.TTDApiService;
@@ -42,4 +43,22 @@ public class JourneyRepository {
         });
         return mutableLiveData;
     }
+
+    public void postJourneys(Journey journey){
+        TTDApiService service = RetrofitInstance.getService();
+        Call<Journey> call = service.postJourneys();
+        call.enqueue(new Callback<Journey>() {
+            @Override
+            public void onResponse(Call<Journey> call, Response<Journey> response) {
+                Toast.makeText(application.getApplicationContext(),"Journey added successfully.",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<Journey> call, Throwable throwable) {
+                Toast.makeText(application.getApplicationContext(),"Failed to add new journey!",Toast.LENGTH_SHORT).show();
+                Log.d("postJourney", "onFailure: "+throwable.getLocalizedMessage());
+            }
+        });
+    }
+
 }

@@ -142,17 +142,17 @@
                 <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Departure Time:"
+                        android:text="Departure Time: "
                         android:textSize="16sp"
                         android:textStyle="bold"
                 />
-                <EditText
+                <Button
                         android:id="@+id/departure_time_input"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:minHeight="48dp"
                         android:hint="HH:MM"
-                        android:inputType="time"/>
+                        android:inputType="Pick Time"/>
             </LinearLayout>
 
 
@@ -185,81 +185,74 @@
                     android:gravity=""
                     android:layout_height="wrap_content">
 
-                <TextView
+                <Button
+                        android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="M"
                         android:gravity="center"
                         android:textSize="20sp"
-                        android:focusable="true"
-                        android:clickable="true"
                         android:background="@drawable/button"
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
 
-                <TextView
+                <Button
+                        android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="T"
                         android:gravity="center"
                         android:textSize="20sp"
-                        android:focusable="true"
-                        android:clickable="true"
                         android:background="@drawable/button"
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
-                <TextView
+                <Button
+                        android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="W"
                         android:gravity="center"
                         android:textSize="20sp"
-                        android:focusable="true"
-                        android:clickable="true"
                         android:background="@drawable/button"
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
-                <TextView
+                <Button
+                        android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="T"
                         android:gravity="center"
                         android:textSize="20sp"
-                        android:focusable="true"
-                        android:clickable="true"
                         android:background="@drawable/button"
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
-                <TextView
+                <Button
+                        android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="F"
                         android:gravity="center"
                         android:textSize="20sp"
-                        android:focusable="true"
-                        android:clickable="true"
                         android:background="@drawable/button"
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
-                <TextView
+                <Button
+                        android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="S"
                         android:gravity="center"
                         android:textSize="20sp"
-                        android:focusable="true"
-                        android:clickable="true"
                         android:background="@drawable/button"
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
-                <TextView
+                <Button
+                        android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="S"
                         android:gravity="center"
                         android:textSize="20sp"
-                        android:focusable="true"
-                        android:clickable="true"
                         android:background="@drawable/button"
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
@@ -299,7 +292,7 @@
                             android:layout_height="wrap_content"
                             android:text="public transport"
                             android:layout_marginRight="40dp"
-                            android:backgroundTint="#5B3198"
+                            android:backgroundTint="#5C3D99"
                             android:textColor="@android:color/white"
                         />
 
@@ -308,7 +301,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="car"
-                            android:backgroundTint="#5B3198"
+                            android:backgroundTint="#5C3D99"
                             android:textColor="@android:color/white"
                             />
 

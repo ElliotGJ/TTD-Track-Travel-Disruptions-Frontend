@@ -1,6 +1,7 @@
 package com.example.tracktraveldisruptionsapp;
 
 import android.content.res.AssetManager;
+import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -14,16 +15,15 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import androidx.lifecycle.ViewModelProvider;
 import com.example.tracktraveldisruptionsapp.databinding.ActivityStationSelectionBinding;
 import com.example.tracktraveldisruptionsapp.model.Station;
-import com.example.tracktraveldisruptionsapp.model.StationList;
-import com.example.tracktraveldisruptionsapp.resources.utils;
+import com.example.tracktraveldisruptionsapp.ui.addjourney.AddJourneyClickHandlers;
+import com.example.tracktraveldisruptionsapp.ui.main.MainActivityViewModel;
 import com.google.gson.Gson;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class NewJourneyActivity extends AppCompatActivity {
 
@@ -31,23 +31,25 @@ public class NewJourneyActivity extends AppCompatActivity {
     private ArrayList<String> arrayList;
     private Dialog dialog;
     private boolean isInputClicked = false;
+    private Station departure;
+    private Station destination;
+
+
+    public Station getDestination() {
+        return destination;
+    }
+
+    public Station getDeparture() {
+        return departure;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_station_selection);
 
-        // Initialize array list
-        arrayList = new ArrayList<>(Arrays.asList(
-                getString(R.string.dsa_self_paced),
-                getString(R.string.complete_interview_prep),
-                getString(R.string.amazon_sde_test_series),
-                getString(R.string.compiler_design),
-                getString(R.string.git_github),
-                getString(R.string.python_foundation),
-                getString(R.string.operating_systems),
-                getString(R.string.theory_of_computation)
-        ));
+        MainActivityViewModel viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        AddJourneyClickHandlers clickHandlers = new AddJourneyClickHandlers(departure,destination,this,viewModel);
 
         binding.fromInput.setOnClickListener(v -> {
             isInputClicked = true;
@@ -83,7 +85,7 @@ public class NewJourneyActivity extends AppCompatActivity {
         ListView listView = dialog.findViewById(R.id.list_view);
 
         // Initialize array adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(NewJourneyActivity.this, android.R.layout.simple_list_item_1, Arrays.stream(station).map(Station::getStation_name).toArray(String[]::new));
+        ArrayAdapter<Station> adapter = new ArrayAdapter<>(NewJourneyActivity.this, android.R.layout.simple_list_item_1, station);
         listView.setAdapter(adapter);
 
         editText.addTextChangedListener(new TextWatcher() {
@@ -104,10 +106,14 @@ public class NewJourneyActivity extends AppCompatActivity {
             if(isInputClicked)
             // Set selected item on TextView
             {
-                binding.fromInput.setText(adapter.getItem(position));
+                Log.d("Departure", adapter.getItem(position).getCrs());
+                binding.fromInput.setText(adapter.getItem(position).getStation_name());
+                departure = adapter.getItem(position);
             } else {
+                Log.d("Destination", adapter.getItem(position).getCrs());
+                destination = adapter.getItem(position);
+                binding.toInput.setText(adapter.getItem(position).getStation_name());
 
-            binding.toInput.setText(adapter.getItem(position));
             }
 
             // Dismiss dialog
