@@ -1,10 +1,12 @@
-package com.example.tracktraveldisruptionsapp;
+package com.example.tracktraveldisruptionsapp.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.tracktraveldisruptionsapp.NewJourneyActivity;
+import com.example.tracktraveldisruptionsapp.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = findViewById(R.id.button);
+        FloatingActionButton button = findViewById(R.id.addbutton);
         button.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, NewJourneyActivity.class);
             startActivity(intent);
