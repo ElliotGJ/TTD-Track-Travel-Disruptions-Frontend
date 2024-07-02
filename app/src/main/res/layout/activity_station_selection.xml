@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".NewJourneyActivity">
+            tools:context=".ui.addjourney.NewJourneyActivity">
 
 
         <TextView
@@ -93,10 +93,10 @@
                                 app:layout_constraintStart_toStartOf="parent"/>
 
                         <TextView
+                            android:textColor="@color/white"
                                 android:id="@+id/from_input"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="@color/black"
                                 android:drawableEnd="@drawable/down_arrow"
                                 app:layout_constraintTop_toTopOf="@id/from_label"
                                 app:layout_constraintStart_toEndOf="@id/from_label"
@@ -118,10 +118,10 @@
                                 app:layout_constraintEnd_toEndOf="@+id/from_label"/>
 
                         <TextView
+                                android:textColor="@color/white"
                                 android:id="@+id/to_input"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:backgroundTint="@color/black"
                                 android:drawableEnd="@drawable/down_arrow"
                                 app:layout_constraintTop_toTopOf="@id/to_label"
                                 app:layout_constraintStart_toEndOf="@id/to_label"
@@ -152,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="48dp"
                         android:hint="HH:MM"
-                        android:inputType="Pick Time"/>
+                        />
             </LinearLayout>
 
 
@@ -315,19 +315,18 @@
                 android:id="@+id/fab_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="10dp"
                 android:contentDescription="Back"
-                android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:backgroundTint="#38A3A5"
                 android:src="@android:drawable/ic_menu_revert"/>
 
-        <Button
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/button_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
                 android:text="Next"
                 android:backgroundTint="#38A3A5"
                 android:textColor="#5B3198"

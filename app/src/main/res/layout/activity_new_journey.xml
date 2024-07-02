@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="8dp"
-            tools:context=".NewJourneyActivity">
+            tools:context=".ui.addjourney.NewJourneyActivity">
 
         <TextView
                 android:id="@+id/header"
