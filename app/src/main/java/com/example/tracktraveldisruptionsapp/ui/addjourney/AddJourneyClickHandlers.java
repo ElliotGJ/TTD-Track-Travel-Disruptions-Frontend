@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
 import androidx.fragment.app.DialogFragment;
-
 import com.example.tracktraveldisruptionsapp.model.Journey;
 import com.example.tracktraveldisruptionsapp.model.JourneyLeg;
 import com.example.tracktraveldisruptionsapp.model.Station;
@@ -69,6 +68,7 @@ public class AddJourneyClickHandlers {
         context.startActivity(intent);
     }
 
+
     public void dayButtonClick(View view) {
         if (view instanceof Button) {
             Button button = (Button) view;
@@ -89,9 +89,32 @@ public class AddJourneyClickHandlers {
 
 
 
-    public void backButton() {
+    public void backButton(View view) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
+    }
+
+    public void setTime(View view,Button setTimeBtn){
+
+       // on below line we are getting the
+       // instance of our calendar.
+       final Calendar c = Calendar.getInstance();
+
+       // on below line we are getting our hour, minute.
+       int hour = c.get(Calendar.HOUR_OF_DAY);
+       int minute = c.get(Calendar.MINUTE);
+
+       // on below line we are initializing our Time Picker Dialog
+       TimePickerDialog timePickerDialog = new TimePickerDialog(context,
+               (view1, hourOfDay, minute1) -> {
+                   // on below line we are setting selected time
+                   // in our text view.
+                   setTimeBtn.setText(hourOfDay + ":" + minute1);
+               }, hour, minute, false);
+       // at last we are calling show to
+       // display our time picker dialog.
+       timePickerDialog.show();
+
     }
 
     public static class TimePickerFragment extends DialogFragment
@@ -112,8 +135,6 @@ public class AddJourneyClickHandlers {
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             // Do something with the time the user picks.
         }
-
-
     }
 }
 

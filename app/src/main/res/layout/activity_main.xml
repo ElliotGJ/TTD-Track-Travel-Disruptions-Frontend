@@ -42,7 +42,7 @@
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:backgroundTint="#7DE09D" />
+        app:backgroundTint="#38A3A5" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

@@ -2,7 +2,6 @@ package com.example.tracktraveldisruptionsapp.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tracktraveldisruptionsapp.ui.addjourney.NewJourneyActivity;
