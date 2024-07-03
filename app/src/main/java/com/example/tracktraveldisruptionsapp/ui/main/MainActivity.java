@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
-import com.example.tracktraveldisruptionsapp.NewJourneyActivity;
+
+import com.example.tracktraveldisruptionsapp.ui.addjourney.NewJourneyActivity;
 import com.example.tracktraveldisruptionsapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

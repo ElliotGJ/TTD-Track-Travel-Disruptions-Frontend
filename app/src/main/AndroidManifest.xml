@@ -23,7 +23,7 @@
 
         <!-- Declare NewJourneyActivity here -->
         <activity
-                android:name=".NewJourneyActivity"
+                android:name=".ui.addjourney.NewJourneyActivity"
                 android:exported="true" />
 
     </application>

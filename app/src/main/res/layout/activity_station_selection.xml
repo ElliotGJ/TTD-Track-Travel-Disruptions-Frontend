@@ -152,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:minHeight="48dp"
                         android:hint="HH:MM"
-                        android:inputType="Pick Time"/>
+                        android:inputType="datetime"/>
             </LinearLayout>
 
 
@@ -186,10 +186,12 @@
                     android:layout_height="wrap_content">
 
                 <Button
+                        android:id="@+id/button_mon"
                         android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="M"
+                        android:tag="Mon"
                         android:gravity="center"
                         android:textSize="20sp"
                         android:background="@drawable/button"
@@ -197,60 +199,72 @@
                         android:layout_marginEnd="8dp"/>
 
                 <Button
+                        android:id="@+id/button_tue"
                         android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="T"
+                        android:tag="Tue"
                         android:gravity="center"
                         android:textSize="20sp"
                         android:background="@drawable/button"
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
                 <Button
+                        android:id="@+id/button_wed"
                         android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="W"
+                        android:tag="Wed"
                         android:gravity="center"
                         android:textSize="20sp"
                         android:background="@drawable/button"
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
                 <Button
+                        android:id="@+id/button_thu"
                         android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="T"
+                        android:tag="Thu"
                         android:gravity="center"
                         android:textSize="20sp"
                         android:background="@drawable/button"
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
                 <Button
+                        android:id="@+id/button_fri"
                         android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="F"
+                        android:tag="Fri"
                         android:gravity="center"
                         android:textSize="20sp"
                         android:background="@drawable/button"
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
                 <Button
+                        android:id="@+id/button_sat"
                         android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="S"
+                        android:tag="Sat"
                         android:gravity="center"
                         android:textSize="20sp"
                         android:background="@drawable/button"
                         android:textColor="@color/white"
                         android:layout_marginEnd="8dp"/>
                 <Button
+                        android:id="@+id/button_sun"
                         android:padding="0dp"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:text="S"
+                        android:tag="Sun"
                         android:gravity="center"
                         android:textSize="20sp"
                         android:background="@drawable/button"

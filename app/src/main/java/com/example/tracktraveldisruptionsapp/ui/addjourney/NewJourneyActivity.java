@@ -53,14 +53,31 @@ public class NewJourneyActivity extends AppCompatActivity {
         MainActivityViewModel viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         AddJourneyClickHandlers clickHandlers = new AddJourneyClickHandlers(departure,destination,this,viewModel);
 
-        FloatingActionButton backBtn = findViewById(R.id.fab_back);
-        backBtn.setOnClickListener(clickHandlers::backButton);
+//        FloatingActionButton backBtn = findViewById(R.id.fab_back);
+//        backBtn.setOnClickListener(clickHandlers::backButton);
+//
+//        ExtendedFloatingActionButton submitBtn = findViewById(R.id.button_next);
+//        submitBtn.setOnClickListener(clickHandlers::submitButton);
+//
+//        Button timeBtn = findViewById(R.id.departure_time_input);
+//        timeBtn.setOnClickListener(view -> clickHandlers.setTime(view,timeBtn));
 
-        ExtendedFloatingActionButton submitBtn = findViewById(R.id.button_next);
-        submitBtn.setOnClickListener(clickHandlers::submitButton);
+        Button monBtn = findViewById(R.id.button_mon);
+        monBtn.setOnClickListener(clickHandlers::dayButtonClick);
+        Button tueBtn = findViewById(R.id.button_tue);
+        tueBtn.setOnClickListener(clickHandlers::dayButtonClick);
+        Button wedBtn = findViewById(R.id.button_wed);
+        wedBtn.setOnClickListener(clickHandlers::dayButtonClick);
+        Button thuBtn = findViewById(R.id.button_thu);
+        thuBtn.setOnClickListener(clickHandlers::dayButtonClick);
+        Button friBtn = findViewById(R.id.button_fri);
+        friBtn.setOnClickListener(clickHandlers::dayButtonClick);
+        Button satBtn = findViewById(R.id.button_sat);
+        satBtn.setOnClickListener(clickHandlers::dayButtonClick);
+        Button sunBtn = findViewById(R.id.button_sun);
+        sunBtn.setOnClickListener(clickHandlers::dayButtonClick);
 
-        Button timeBtn = findViewById(R.id.departure_time_input);
-        timeBtn.setOnClickListener(view -> clickHandlers.setTime(view,timeBtn));
+
 
 
 
