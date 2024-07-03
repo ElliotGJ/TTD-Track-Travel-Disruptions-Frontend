@@ -1,6 +1,7 @@
 package com.example.tracktraveldisruptionsapp.ui.main;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,7 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tracktraveldisruptionsapp.databinding.ItemLayoutMainBinding;
 import com.example.tracktraveldisruptionsapp.model.Journey;
 import org.jetbrains.annotations.NotNull;
+
+import java.time.DayOfWeek;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyViewHolder>{
 
@@ -37,7 +42,8 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
     public void onBindViewHolder(@NonNull @NotNull JourneyViewHolder journeyView, int position) {
         Journey journey = journeys.get(position);
         journeyView.itemLayoutBinding.setJourney(journey);
-        Log.d("adapter", journeys.get(0).getDestination());
+        frequencyColourSetter(journey.getDays(),journeyView);
+
 
     }
 
@@ -46,6 +52,30 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         return journeys.size();
     }
 
+    private void frequencyColourSetter(Set<DayOfWeek> days, JourneyViewHolder journeyView ){
+        if (days.contains(DayOfWeek.MONDAY)) {
+            journeyView.itemLayoutBinding.freqM.setTextColor(Color.RED);
+        }
+        if (days.contains(DayOfWeek.TUESDAY)) {
+            journeyView.itemLayoutBinding.freqTu.setTextColor(Color.RED);
+        }
+        if (days.contains(DayOfWeek.WEDNESDAY)) {
+            journeyView.itemLayoutBinding.freqW.setTextColor(Color.RED);
+        }
+        if (days.contains(DayOfWeek.THURSDAY)) {
+            journeyView.itemLayoutBinding.freqTh.setTextColor(Color.RED);
+        }
+        if (days.contains(DayOfWeek.FRIDAY)) {
+            journeyView.itemLayoutBinding.freqF.setTextColor(Color.RED);
+        }
+        if (days.contains(DayOfWeek.SATURDAY)) {
+            journeyView.itemLayoutBinding.freqSat.setTextColor(Color.RED);
+        }
+        if (days.contains(DayOfWeek.SUNDAY)) {
+            journeyView.itemLayoutBinding.freqSun.setTextColor(Color.RED);
+        }
+
+    }
 
 
     public static class JourneyViewHolder extends RecyclerView.ViewHolder {

@@ -2,6 +2,7 @@ package com.example.tracktraveldisruptionsapp.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.databinding.DataBindingUtil;
@@ -43,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
     private void getAllJourneys(){
         viewModel.getRepositoryLiveData().observe(this, journeyList -> {
             journeys = (ArrayList<Journey>) journeyList;
+            if (journeys.isEmpty()){
+                showAddJourneyMessage(true);
+            }else {
+                showAddJourneyMessage(false);
+            }
             displayInRecyclerView();
         });
 
@@ -61,4 +67,16 @@ public class MainActivity extends AppCompatActivity {
         journeyAdapter.notifyDataSetChanged();
 
     }
+
+    private void showAddJourneyMessage(boolean visible){
+        if(visible) {
+            binding.noJourneyImg.setVisibility(View.VISIBLE);
+            binding.noJourneyMsg.setVisibility(View.VISIBLE);
+        }else{
+            binding.noJourneyImg.setVisibility(View.INVISIBLE);
+            binding.noJourneyMsg.setVisibility(View.INVISIBLE);
+        }
+
+    }
+
 }
