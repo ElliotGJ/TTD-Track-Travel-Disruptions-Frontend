@@ -53,17 +53,18 @@ public class NewJourneyActivity extends AppCompatActivity {
         MainActivityViewModel viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         AddJourneyClickHandlers clickHandlers = new AddJourneyClickHandlers(departure,destination,this,viewModel);
 
-//        FloatingActionButton backBtn = findViewById(R.id.fab_back);
-//        backBtn.setOnClickListener(clickHandlers::backButton);
-//
-//        ExtendedFloatingActionButton submitBtn = findViewById(R.id.button_next);
-//        submitBtn.setOnClickListener(clickHandlers::submitButton);
-//
-//        Button timeBtn = findViewById(R.id.departure_time_input);
-//        timeBtn.setOnClickListener(view -> clickHandlers.setTime(view,timeBtn));
+        FloatingActionButton backBtn = findViewById(R.id.fab_back);
+        backBtn.setOnClickListener(clickHandlers::backButton);
 
-        Button monBtn = findViewById(R.id.button_mon);
-        monBtn.setOnClickListener(clickHandlers::dayButtonClick);
+        ExtendedFloatingActionButton submitBtn = findViewById(R.id.button_next);
+        submitBtn.setOnClickListener(clickHandlers::submitButton);
+
+        Button timeBtn = findViewById(R.id.departure_time_input);
+        timeBtn.setOnClickListener(view -> clickHandlers.setTime(view,timeBtn));
+
+        binding.buttonMon.setOnClickListener(clickHandlers::dayButtonClick);
+//        Button monBtn = findViewById(R.id.button_mon);
+//        monBtn.setOnClickListener(clickHandlers::dayButtonClick);
         Button tueBtn = findViewById(R.id.button_tue);
         tueBtn.setOnClickListener(clickHandlers::dayButtonClick);
         Button wedBtn = findViewById(R.id.button_wed);

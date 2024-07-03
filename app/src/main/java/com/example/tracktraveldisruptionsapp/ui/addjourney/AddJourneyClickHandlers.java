@@ -86,9 +86,6 @@ public class AddJourneyClickHandlers {
     }
 
 
-
-
-
     public void backButton(View view) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
