@@ -38,7 +38,8 @@ public class JourneyRepository {
 
             @Override
             public void onFailure(Call<List<Journey>> call, Throwable throwable) {
-
+                Log.i("JOURNEYLISTLOG","FAILURE");
+                Log.i("JOURNEYLISTLOG",throwable.getLocalizedMessage());
             }
         });
         return mutableLiveData;
