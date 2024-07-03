@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.tracktraveldisruptionsapp.databinding.ActivityMainBinding;
 import com.example.tracktraveldisruptionsapp.model.Journey;
+import com.example.tracktraveldisruptionsapp.resources.ItemSpaceDecorator;
 import com.example.tracktraveldisruptionsapp.ui.addjourney.NewJourneyActivity;
 import com.example.tracktraveldisruptionsapp.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         journeyAdapter = new JourneyAdapter(journeys,this);
         recyclerView.setAdapter(journeyAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        ItemSpaceDecorator decorator = new ItemSpaceDecorator(40);
+        recyclerView.addItemDecoration(decorator);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         journeyAdapter.notifyDataSetChanged();

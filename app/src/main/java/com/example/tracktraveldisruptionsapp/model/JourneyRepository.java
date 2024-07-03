@@ -29,7 +29,7 @@ public class JourneyRepository {
             public void onResponse(Call<List<Journey>> call, Response<List<Journey>> response) {
                 List<Journey> journeys = response.body();
                 Log.i("JOURNEYLISTLOG",""+response.code());
-                Log.i("JOURNEYLISTLOG", journeys.toString());
+                Log.i("JOURNEYLISTLOG", journeys.get(0).getDestination());
                 Log.i("JOURNEYLISTLOG","ON SUCCESS");
 
 

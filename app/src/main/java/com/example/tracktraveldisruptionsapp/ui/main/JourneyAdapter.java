@@ -1,6 +1,7 @@
 package com.example.tracktraveldisruptionsapp.ui.main;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
@@ -15,9 +16,11 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
     List<Journey> journeys;
     Context context;
 
+
     public JourneyAdapter(List<Journey> journeys, Context context) {
         this.journeys = journeys;
         this.context = context;
+
 
     }
 
@@ -33,6 +36,8 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
     @Override
     public void onBindViewHolder(@NonNull @NotNull JourneyViewHolder journeyView, int position) {
         Journey journey = journeys.get(position);
+        journeyView.itemLayoutBinding.setJourney(journey);
+        Log.d("adapter", journeys.get(0).getDestination());
 
     }
 
