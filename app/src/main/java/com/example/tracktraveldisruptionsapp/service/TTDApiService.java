@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface TTDApiService {
 
-    @GET
+    @GET("journey")
     Call<List<Journey>> getAllJourneys();
 
-    @POST
+    @POST("journey")
     Call<Journey> postJourneys();
 }

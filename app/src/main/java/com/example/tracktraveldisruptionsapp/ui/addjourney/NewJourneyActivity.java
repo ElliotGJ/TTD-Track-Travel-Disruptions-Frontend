@@ -63,8 +63,7 @@ public class NewJourneyActivity extends AppCompatActivity {
         timeBtn.setOnClickListener(view -> clickHandlers.setTime(view,timeBtn));
 
         binding.buttonMon.setOnClickListener(clickHandlers::dayButtonClick);
-//        Button monBtn = findViewById(R.id.button_mon);
-//        monBtn.setOnClickListener(clickHandlers::dayButtonClick);
+
         Button tueBtn = findViewById(R.id.button_tue);
         tueBtn.setOnClickListener(clickHandlers::dayButtonClick);
         Button wedBtn = findViewById(R.id.button_wed);

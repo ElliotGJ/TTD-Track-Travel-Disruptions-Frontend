@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitInstance {
 
     private static Retrofit rfInstance = null;
-    private static final String URL = "http://10.0.2.2:8080/api/v1/journey";
+    private static final String URL = "http://10.0.2.2:8080/api/v1/";
 
 
     public static TTDApiService getService(){

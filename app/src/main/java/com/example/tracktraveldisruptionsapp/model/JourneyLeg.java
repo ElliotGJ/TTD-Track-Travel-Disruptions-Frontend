@@ -25,4 +25,28 @@ public class JourneyLeg {
 
     public JourneyLeg() {
     }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public String getOriginCRS() {
+        return originCRS;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public String getDestinationCRS() {
+        return destinationCRS;
+    }
+
+    public int getLegOrder() {
+        return legOrder;
+    }
+
+    public String getTransportProvider() {
+        return transportProvider;
+    }
 }

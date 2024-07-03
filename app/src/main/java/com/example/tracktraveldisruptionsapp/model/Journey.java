@@ -30,5 +30,29 @@ public class Journey {
 
     public Journey() {
     }
+
+    public Boolean getNotificationsEnabled() {
+        return notificationsEnabled;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public Set<DayOfWeek> getDays() {
+        return days;
+    }
+
+    public String getDepartureTime() {
+        return departureTime;
+    }
+
+    public Set<JourneyLeg> getJourneyLegs() {
+        return journeyLegs;
+    }
 }
 
