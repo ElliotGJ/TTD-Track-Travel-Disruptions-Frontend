@@ -19,7 +19,8 @@ public class Journey {
 
     private Set<JourneyLeg> journeyLegs;
 
-    public Journey(Boolean notificationsEnabled, String origin, String destination, Set<DayOfWeek> days, String departureTime, Set<JourneyLeg> journeyLegs) {
+
+    public Journey(Boolean notificationsEnabled, String origin, String destination, Set<DayOfWeek> days, String departureTime, Set<JourneyLeg> journeyLegs, String std, String etd, String platform, String isCancelled, String filterLocationCancelled, String cancelReason, String delayReason, String adhocAlerts, String serviceID, String affectedBy) {
         this.notificationsEnabled = notificationsEnabled;
         this.origin = origin;
         this.destination = destination;

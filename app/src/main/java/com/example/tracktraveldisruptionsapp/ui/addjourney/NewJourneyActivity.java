@@ -77,10 +77,6 @@ public class NewJourneyActivity extends AppCompatActivity {
         Button sunBtn = findViewById(R.id.button_sun);
         sunBtn.setOnClickListener(clickHandlers::dayButtonClick);
 
-
-
-
-
         binding.fromInput.setOnClickListener(v -> {
             isInputClicked = true;
             showDialog();
@@ -148,8 +144,6 @@ public class NewJourneyActivity extends AppCompatActivity {
 
             // Dismiss dialog
             dialog.dismiss();
-
-
 
         });
     }
