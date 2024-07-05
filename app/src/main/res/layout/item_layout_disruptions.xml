@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/item_bg">
+    <data>
+        <variable
+            name="journey"
+            type="com.example.tracktraveldisruptionsapp.model.Journey" />
+        <variable
+            name="journeyLeg"
+            type="com.example.tracktraveldisruptionsapp.model.JourneyLeg" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="250dp">
+    <TextView
+        android:id="@+id/CrsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/originCrs"
+        app:layout_constraintTop_toTopOf="@id/arrow"
+        android:text="Train: "
+        />
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text=" ➔ "
+        />
+    <TextView
+        android:id="@+id/originCrs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/arrow"
+        app:layout_constraintTop_toTopOf="@id/arrow"
+        tools:hint="BHM"
+        />
+    <TextView
+        android:id="@+id/destinationCrs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/arrow"
+        app:layout_constraintTop_toTopOf="@id/arrow"
+        tools:hint="LEI"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

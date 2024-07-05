@@ -25,8 +25,6 @@ public class Journey extends BaseObservable implements Parcelable {
 
     private Set<JourneyLeg> journeyLegs;
 
-
-
     public Journey(Boolean notificationsEnabled, String origin, String destination, Set<DayOfWeek> days, String departureTime, Set<JourneyLeg> journeyLegs) {
         this.notificationsEnabled = notificationsEnabled;
         this.origin = origin;

@@ -63,7 +63,7 @@ public class AddJourneyClickHandlers {
         JourneyLeg leg1 = new JourneyLeg(departure.getStation_name(), departure.getCrs(), destination.getStation_name(), destination.getCrs(), 1, "Cross-Country");
         Set<JourneyLeg> legs = new HashSet<>();
         legs.add(leg1);
-        viewModel.addJourney(new Journey(false, departure.getStation_name(), destination.getStation_name(), frequency, "14:00", legs));
+       // viewModel.addJourney(new Journey(false, departure.getStation_name(), destination.getStation_name(), frequency, "14:00", legs));
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }

@@ -63,7 +63,6 @@ public class NewJourneyActivity extends AppCompatActivity {
         Button timeBtn = findViewById(R.id.departure_time_input);
         timeBtn.setOnClickListener(view -> clickHandlers.setTime(view,timeBtn));
 
-
         binding.buttonMon.setOnClickListener(clickHandlers::dayButtonClick);
         binding.buttonTue.setOnClickListener(clickHandlers::dayButtonClick);
         binding.buttonWed.setOnClickListener(clickHandlers::dayButtonClick);
@@ -146,6 +145,7 @@ public class NewJourneyActivity extends AppCompatActivity {
 
             // Dismiss dialog
             dialog.dismiss();
+
 
 
         });
