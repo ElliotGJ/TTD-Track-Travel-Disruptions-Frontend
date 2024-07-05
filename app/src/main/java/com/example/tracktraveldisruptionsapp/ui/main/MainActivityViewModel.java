@@ -24,5 +24,6 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     public void addJourney(Journey journey){
         journeyRepository.postJourneys(journey);
+        journeyRepository.getMutableLiveData();
     }
 }

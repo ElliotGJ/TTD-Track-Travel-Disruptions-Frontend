@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import androidx.fragment.app.DialogFragment;
 import com.example.tracktraveldisruptionsapp.model.Journey;
 import com.example.tracktraveldisruptionsapp.model.JourneyLeg;
+import com.example.tracktraveldisruptionsapp.model.JourneyRepository;
 import com.example.tracktraveldisruptionsapp.model.Station;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivity;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivityViewModel;
@@ -22,22 +25,30 @@ import java.util.*;
 
 public class AddJourneyClickHandlers {
 
-    private Station departure;
-    private Station destination;
+//    private Station departure;
+    private NewJourneyActivity activity;
+//    private Station destination;
     private Context context;
     private MainActivityViewModel viewModel;
     private Map<String, Boolean> buttonStatesMap;
 
 
-    public AddJourneyClickHandlers(Station departure, Station destination, Context context, MainActivityViewModel viewModel) {
-        this.departure = departure;
-        this.destination = destination;
+//    public AddJourneyClickHandlers(Station departure, Station destination, Context context, MainActivityViewModel viewModel) {
+//        this.departure = departure;
+//        this.destination = destination;
+//        this.context = context;
+//        this.viewModel = viewModel;
+//        this.buttonStatesMap = new HashMap<>();
+//        setButtonStates();
+//    }
+
+
+    public AddJourneyClickHandlers(NewJourneyActivity activity, Context context, MainActivityViewModel viewModel) {
+        this.activity = activity;
         this.context = context;
         this.viewModel = viewModel;
         this.buttonStatesMap = new HashMap<>();
         setButtonStates();
-
-
     }
 
     public void setButtonStates() {
@@ -60,10 +71,43 @@ public class AddJourneyClickHandlers {
         if(buttonStatesMap.get("Sat")) frequency.add(DayOfWeek.SATURDAY);
         if(buttonStatesMap.get("Sun")) frequency.add(DayOfWeek.SUNDAY);
 
+        Station departure = activity.getDeparture();
+        Station destination = activity.getDestination();
+
+        //Check for nullPointer
+        if (departure == null) {
+            Log.e("AddJourneyClickHandlers", "Departure station is null");
+            Toast.makeText(context, "Please select a departure station.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (destination == null) {
+            Log.e("AddJourneyClickHandlers", "Destination station is null");
+            Toast.makeText(context, "Please select a destination station.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Log.d("AddJourneyClickHandlers", "Departure: " + departure.getStation_name() + ", Destination: " + destination.getStation_name());
+        //End of check for nullPointer
+
         JourneyLeg leg1 = new JourneyLeg(departure.getStation_name(), departure.getCrs(), destination.getStation_name(), destination.getCrs(), 1, "Cross-Country");
         Set<JourneyLeg> legs = new HashSet<>();
         legs.add(leg1);
-       // viewModel.addJourney(new Journey(false, departure.getStation_name(), destination.getStation_name(), frequency, "14:00", legs));
+
+        // Log journey details
+        Log.d("AddJourneyClickHandlers", "Adding journey: " + departure.getStation_name() + " to " + destination.getStation_name());
+
+        Journey newJourney = new Journey(false, "BHX", "MAN", frequency, "14:00", legs);
+        Log.d("TestAdding", "Adding journey: " +
+                newJourney.getNotificationsEnabled() +
+                newJourney.getOrigin() +
+                newJourney.getDestination() +
+                newJourney.getDays() +
+                newJourney.getDepartureTime() +
+                newJourney.getJourneyLegs());
+
+        viewModel.addJourney(newJourney);
+
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }

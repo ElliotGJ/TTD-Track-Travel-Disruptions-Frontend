@@ -1,6 +1,7 @@
 package com.example.tracktraveldisruptionsapp.ui.addjourney;
 
 import android.content.res.AssetManager;
+import android.util.Log;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -51,7 +52,7 @@ public class NewJourneyActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_station_selection);
 
         MainActivityViewModel viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        AddJourneyClickHandlers clickHandlers = new AddJourneyClickHandlers(departure,destination,this,viewModel);
+        AddJourneyClickHandlers clickHandlers = new AddJourneyClickHandlers(this, this, viewModel);
 
         FloatingActionButton backBtn = findViewById(R.id.fab_back);
         backBtn.setOnClickListener(clickHandlers::backButton);
@@ -60,7 +61,7 @@ public class NewJourneyActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(clickHandlers::submitButton);
 
         Button timeBtn = findViewById(R.id.departure_time_input);
-        timeBtn.setOnClickListener(view -> clickHandlers.setTime(view,timeBtn));
+        timeBtn.setOnClickListener(view -> clickHandlers.setTime(view, timeBtn));
 
         binding.buttonMon.setOnClickListener(clickHandlers::dayButtonClick);
 
@@ -116,7 +117,8 @@ public class NewJourneyActivity extends AppCompatActivity {
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -124,22 +126,26 @@ public class NewJourneyActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+            }
         });
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             // checks if input is clicked then updates the correct text view
-            if(isInputClicked)
+            if (isInputClicked)
             // Set selected item on TextView
             {
-
-                binding.fromInput.setText("  "+adapter.getItem(position).getStation_name());
                 departure = adapter.getItem(position);
+                binding.fromInput.setText("  " + adapter.getItem(position).getStation_name());
+                //Sunny: added checking for successful seleection
+                Log.d("NewJourneyActivity", "Departure selected: " + departure.getCrs());
+
             } else {
 
                 destination = adapter.getItem(position);
-                binding.toInput.setText("  "+adapter.getItem(position).getStation_name());
-
+                binding.toInput.setText("  " + adapter.getItem(position).getStation_name());
+                //Sunny: added checking for successful seleection
+                Log.d("NewJourneyActivity", "Destination selected: " + destination.getCrs());
             }
 
             // Dismiss dialog

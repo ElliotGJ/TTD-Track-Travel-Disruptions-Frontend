@@ -38,34 +38,34 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, NewJourneyActivity.class);
             startActivity(intent);
         });
+        displayInRecyclerView();
         getAllJourneys();
     }
 
     private void getAllJourneys(){
         viewModel.getRepositoryLiveData().observe(this, journeyList -> {
-            journeys = (ArrayList<Journey>) journeyList;
-            if (journeys.isEmpty()){
+            journeys.clear();
+            journeys.addAll(journeyList);
+            journeyAdapter.notifyDataSetChanged();
+
+            if (journeys.isEmpty()) {
                 showAddJourneyMessage(true);
-            }else {
+            } else {
                 showAddJourneyMessage(false);
             }
-            displayInRecyclerView();
         });
-
-
     }
 
     private void displayInRecyclerView(){
         recyclerView = binding.recyclerView;
-        journeyAdapter = new JourneyAdapter(journeys,this);
+        journeys = new ArrayList<>();
+        journeyAdapter = new JourneyAdapter(journeys, this);
         recyclerView.setAdapter(journeyAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         ItemSpaceDecorator decorator = new ItemSpaceDecorator(40);
         recyclerView.addItemDecoration(decorator);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        journeyAdapter.notifyDataSetChanged();
-
     }
 
     private void showAddJourneyMessage(boolean visible){

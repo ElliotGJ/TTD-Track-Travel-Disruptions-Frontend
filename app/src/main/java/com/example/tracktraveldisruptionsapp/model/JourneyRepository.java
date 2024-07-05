@@ -47,11 +47,12 @@ public class JourneyRepository {
 
     public void postJourneys(Journey journey){
         TTDApiService service = RetrofitInstance.getService();
-        Call<Journey> call = service.postJourneys();
+        Call<Journey> call = service.addNewJourney(journey);
         call.enqueue(new Callback<Journey>() {
             @Override
             public void onResponse(Call<Journey> call, Response<Journey> response) {
                 Toast.makeText(application.getApplicationContext(),"Journey added successfully.",Toast.LENGTH_SHORT).show();
+                getMutableLiveData();
             }
 
             @Override
@@ -61,5 +62,4 @@ public class JourneyRepository {
             }
         });
     }
-
 }

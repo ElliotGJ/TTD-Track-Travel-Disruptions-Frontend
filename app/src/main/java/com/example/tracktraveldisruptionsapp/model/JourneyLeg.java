@@ -1,15 +1,17 @@
 package com.example.tracktraveldisruptionsapp.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class JourneyLeg {
-
+    @SerializedName("origin")
     private String origin;
-
+    @SerializedName("originCRS")
     private String originCRS;
-
+    @SerializedName("destination")
     private String destination;
-
+    @SerializedName("destinationCRS")
     private String destinationCRS;
-
+    @SerializedName("legOrder")
     private int legOrder;
 
     private String transportProvider;
