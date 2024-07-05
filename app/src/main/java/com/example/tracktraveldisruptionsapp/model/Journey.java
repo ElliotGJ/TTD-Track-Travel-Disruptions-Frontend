@@ -12,6 +12,8 @@ public class Journey {
     private String origin;
     @SerializedName("destinationCRS")
     private String destination;
+    @SerializedName("userId")
+    private int userId;
     @SerializedName("days")
     private Set<DayOfWeek> days;
     @SerializedName("departureTime")
@@ -19,26 +21,14 @@ public class Journey {
     @SerializedName("journeyLegs")
     private Set<JourneyLeg> journeyLegs;
 
-
-    public Journey(Boolean notificationsEnabled, String origin, String destination, Set<DayOfWeek> days, String departureTime, Set<JourneyLeg> journeyLegs) {
+    public Journey(Boolean notificationsEnabled, String origin, String destination, int userId, Set<DayOfWeek> days, String departureTime, Set<JourneyLeg> journeyLegs) {
         this.notificationsEnabled = notificationsEnabled;
         this.origin = origin;
         this.destination = destination;
+        this.userId = userId;
         this.days = days;
         this.departureTime = departureTime;
         this.journeyLegs = journeyLegs;
-    }
-
-//    public Journey(Boolean notificationsEnabled, String origin, String destination, Set<DayOfWeek> days, String departureTime, Set<JourneyLeg> journeyLegs, String std, String etd, String platform, String isCancelled, String filterLocationCancelled, String cancelReason, String delayReason, String adhocAlerts, String serviceID, String affectedBy) {
-//        this.notificationsEnabled = notificationsEnabled;
-//        this.origin = origin;
-//        this.destination = destination;
-//        this.days = days;
-//        this.departureTime = departureTime;
-//        this.journeyLegs = journeyLegs;
-//    }
-
-    public Journey() {
     }
 
     public Boolean getNotificationsEnabled() {
@@ -51,6 +41,10 @@ public class Journey {
 
     public String getDestination() {
         return destination;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     public Set<DayOfWeek> getDays() {

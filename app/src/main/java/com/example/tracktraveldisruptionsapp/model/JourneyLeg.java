@@ -13,7 +13,7 @@ public class JourneyLeg {
     private String destinationCRS;
     @SerializedName("legOrder")
     private int legOrder;
-
+    @SerializedName("transportProvider")
     private String transportProvider;
 
     public JourneyLeg(String origin, String originCRS, String destination, String destinationCRS, int legOrder, String transportProvider) {
@@ -25,9 +25,7 @@ public class JourneyLeg {
         this.transportProvider = transportProvider;
     }
 
-    public JourneyLeg() {
-    }
-
+    // Getters and Setters
     public String getOrigin() {
         return origin;
     }

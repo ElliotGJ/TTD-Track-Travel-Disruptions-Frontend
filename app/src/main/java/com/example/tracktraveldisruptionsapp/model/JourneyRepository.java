@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import java.io.IOException;
 import java.util.List;
 
 public class JourneyRepository {
@@ -45,20 +46,31 @@ public class JourneyRepository {
         return mutableLiveData;
     }
 
-    public void postJourneys(Journey journey){
+    public void postJourneys(Journey journey) {
         TTDApiService service = RetrofitInstance.getService();
         Call<Journey> call = service.addNewJourney(journey);
         call.enqueue(new Callback<Journey>() {
             @Override
             public void onResponse(Call<Journey> call, Response<Journey> response) {
-                Toast.makeText(application.getApplicationContext(),"Journey added successfully.",Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
+                    Log.i("postJourney", "onResponse: " + response.body().toString());
+                    Toast.makeText(application.getApplicationContext(), "Journey added successfully.", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        String errorResponse = response.errorBody().string();
+                        Log.e("postJourney", "Error: " + errorResponse);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(application.getApplicationContext(), "Failed to add new journey!", Toast.LENGTH_SHORT).show();
+                }
                 getMutableLiveData();
             }
 
             @Override
             public void onFailure(Call<Journey> call, Throwable throwable) {
-                Toast.makeText(application.getApplicationContext(),"Failed to add new journey!",Toast.LENGTH_SHORT).show();
-                Log.d("postJourney", "onFailure: "+throwable.getLocalizedMessage());
+                Toast.makeText(application.getApplicationContext(), "Failed to add new journey!", Toast.LENGTH_SHORT).show();
+                Log.e("postJourney", "onFailure: " + throwable.getLocalizedMessage());
             }
         });
     }

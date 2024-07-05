@@ -19,6 +19,7 @@ import com.example.tracktraveldisruptionsapp.model.JourneyRepository;
 import com.example.tracktraveldisruptionsapp.model.Station;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivity;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivityViewModel;
+import com.google.gson.Gson;
 
 import java.time.DayOfWeek;
 import java.util.*;
@@ -74,37 +75,37 @@ public class AddJourneyClickHandlers {
         Station departure = activity.getDeparture();
         Station destination = activity.getDestination();
 
-        //Check for nullPointer
-        if (departure == null) {
-            Log.e("AddJourneyClickHandlers", "Departure station is null");
-            Toast.makeText(context, "Please select a departure station.", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        if (destination == null) {
-            Log.e("AddJourneyClickHandlers", "Destination station is null");
-            Toast.makeText(context, "Please select a destination station.", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        Log.d("AddJourneyClickHandlers", "Departure: " + departure.getStation_name() + ", Destination: " + destination.getStation_name());
-        //End of check for nullPointer
-
-        JourneyLeg leg1 = new JourneyLeg(departure.getStation_name(), departure.getCrs(), destination.getStation_name(), destination.getCrs(), 1, "Cross-Country");
+        JourneyLeg leg1 = new JourneyLeg(
+                "Alexandra Palace Rail Station",
+                "AAX",
+                "Achanalt Rail Station",
+                "AAT",
+                1,
+                "Cross-Country"
+        );
         Set<JourneyLeg> legs = new HashSet<>();
         legs.add(leg1);
+
+//        JourneyLeg leg1 = new JourneyLeg(departure.getStation_name(), departure.getCrs(), destination.getStation_name(), destination.getCrs(), 1, "Cross-Country");
+//        Set<JourneyLeg> legs = new HashSet<>();
+//        legs.add(leg1);
 
         // Log journey details
         Log.d("AddJourneyClickHandlers", "Adding journey: " + departure.getStation_name() + " to " + destination.getStation_name());
 
-        Journey newJourney = new Journey(false, "BHX", "MAN", frequency, "14:00", legs);
-        Log.d("TestAdding", "Adding journey: " +
-                newJourney.getNotificationsEnabled() +
-                newJourney.getOrigin() +
-                newJourney.getDestination() +
-                newJourney.getDays() +
-                newJourney.getDepartureTime() +
-                newJourney.getJourneyLegs());
+        Journey newJourney = new Journey(
+                false,
+                "BHX",
+                "MAN",
+                1, // Assuming userId is 1 for now
+                frequency,
+                "14:00",
+                legs
+        );
+
+        Gson gson = new Gson();
+        String json = gson.toJson(newJourney);
+        Log.d("Journey JSON", json);
 
         viewModel.addJourney(newJourney);
 
