@@ -25,4 +25,8 @@ public class MainActivityViewModel extends AndroidViewModel {
     public void addJourney(Journey journey){
         journeyRepository.postJourneys(journey);
     }
+
+    public void updateJourney(Journey journey) {
+        journeyRepository.updateJourney(journey);
+    }
 }

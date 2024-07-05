@@ -5,6 +5,7 @@ import com.example.tracktraveldisruptionsapp.model.Station;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 import java.util.List;
 
@@ -15,4 +16,7 @@ public interface TTDApiService {
 
     @POST("journey")
     Call<Journey> postJourneys();
+
+    @PUT("journey/{id}")
+    Call<Journey> updateJourney(Journey journey);
 }

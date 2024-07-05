@@ -1,10 +1,12 @@
 package com.example.tracktraveldisruptionsapp.ui.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.LayoutInflater;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.view.View;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,6 +16,7 @@ import com.example.tracktraveldisruptionsapp.model.Journey;
 import com.example.tracktraveldisruptionsapp.resources.ItemSpaceDecorator;
 import com.example.tracktraveldisruptionsapp.ui.addjourney.NewJourneyActivity;
 import com.example.tracktraveldisruptionsapp.R;
+import com.example.tracktraveldisruptionsapp.ui.editjourney.EditJourneyActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -52,12 +55,16 @@ public class MainActivity extends AppCompatActivity {
             displayInRecyclerView();
         });
 
-
     }
 
     private void displayInRecyclerView(){
         recyclerView = binding.recyclerView;
-        journeyAdapter = new JourneyAdapter(journeys,this);
+        journeyAdapter = new JourneyAdapter(journeys,this, view -> {
+            Journey journey = (Journey) view.getTag();
+            Intent intent = new Intent(MainActivity.this, EditJourneyActivity.class);
+            intent.putExtra("journey", journey);
+            startActivity(intent);
+        });
         recyclerView.setAdapter(journeyAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         ItemSpaceDecorator decorator = new ItemSpaceDecorator(40);

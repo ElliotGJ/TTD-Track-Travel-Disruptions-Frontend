@@ -62,4 +62,27 @@ public class JourneyRepository {
         });
     }
 
+    public void updateJourney(Journey journey) {
+        TTDApiService service = RetrofitInstance.getService();
+        Call<Journey> call = service.updateJourney(journey);
+        call.enqueue(new Callback<Journey>() {
+            @Override
+            public void onResponse(Call<Journey> call, Response<Journey> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(application.getApplicationContext(),"Journey updated successfully.",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(application.getApplicationContext(),"Failed to update journey!",Toast.LENGTH_SHORT).show();
+                    Log.e("JourneyRepository", "Failed to update journey: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Journey> call, Throwable throwable) {
+                Toast.makeText(application.getApplicationContext(),"Failed to update journey!",Toast.LENGTH_SHORT).show();
+                Log.e("JourneyRepository", "Failed to update journey: " + throwable.getMessage());
+            }
+        });
+    }
+
+
 }

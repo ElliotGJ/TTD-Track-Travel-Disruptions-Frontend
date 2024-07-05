@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment;
 import com.example.tracktraveldisruptionsapp.model.Journey;
 import com.example.tracktraveldisruptionsapp.model.JourneyLeg;
 import com.example.tracktraveldisruptionsapp.model.Station;
+import com.example.tracktraveldisruptionsapp.ui.editjourney.EditJourneyActivity;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivity;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivityViewModel;
 
@@ -36,7 +37,6 @@ public class AddJourneyClickHandlers {
         this.viewModel = viewModel;
         this.buttonStatesMap = new HashMap<>();
         setButtonStates();
-
 
     }
 
@@ -90,6 +90,7 @@ public class AddJourneyClickHandlers {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
+
 
     public void setTime(View view,Button setTimeBtn){
 

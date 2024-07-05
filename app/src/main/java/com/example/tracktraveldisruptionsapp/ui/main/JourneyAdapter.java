@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,11 +21,13 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
 
     List<Journey> journeys;
     Context context;
+    View.OnClickListener editClickListener;
 
 
-    public JourneyAdapter(List<Journey> journeys, Context context) {
+    public JourneyAdapter(List<Journey> journeys, Context context, View.OnClickListener editClickListener) {
         this.journeys = journeys;
         this.context = context;
+        this.editClickListener = editClickListener;
 
 
     }
@@ -44,6 +47,8 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         journeyView.itemLayoutBinding.setJourney(journey);
         frequencyColourSetter(journey.getDays(),journeyView);
 
+        journeyView.itemLayoutBinding.editButton.setTag(journey);
+        journeyView.itemLayoutBinding.editButton.setOnClickListener(editClickListener);
 
     }
 

@@ -26,6 +26,8 @@
         <activity
                 android:name=".ui.addjourney.NewJourneyActivity"
                 android:exported="true" />
+        <activity android:name=".ui.editjourney.EditJourneyActivity"
+                                        />
 
     </application>
 

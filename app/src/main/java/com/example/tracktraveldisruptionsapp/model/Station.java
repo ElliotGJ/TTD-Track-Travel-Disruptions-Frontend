@@ -1,6 +1,7 @@
 package com.example.tracktraveldisruptionsapp.model;
 
 
+import com.google.gson.annotations.SerializedName;
 import org.jetbrains.annotations.NotNull;
 
 public class Station {
@@ -20,10 +21,11 @@ public class Station {
     public void setStation_name(String station_name) {
         this.station_name = station_name;
     }
-
+    @SerializedName("csr")
     public String getCrs() {
         return crs;
     }
+
 
     public void setCrs(String crs) {
         this.crs = crs;

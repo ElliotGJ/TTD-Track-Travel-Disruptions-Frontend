@@ -1,6 +1,7 @@
 package com.example.tracktraveldisruptionsapp.ui.addjourney;
 
 import android.content.res.AssetManager;
+import android.util.Log;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -62,23 +63,14 @@ public class NewJourneyActivity extends AppCompatActivity {
         Button timeBtn = findViewById(R.id.departure_time_input);
         timeBtn.setOnClickListener(view -> clickHandlers.setTime(view,timeBtn));
 
+
         binding.buttonMon.setOnClickListener(clickHandlers::dayButtonClick);
-
-        Button tueBtn = findViewById(R.id.button_tue);
-        tueBtn.setOnClickListener(clickHandlers::dayButtonClick);
-        Button wedBtn = findViewById(R.id.button_wed);
-        wedBtn.setOnClickListener(clickHandlers::dayButtonClick);
-        Button thuBtn = findViewById(R.id.button_thu);
-        thuBtn.setOnClickListener(clickHandlers::dayButtonClick);
-        Button friBtn = findViewById(R.id.button_fri);
-        friBtn.setOnClickListener(clickHandlers::dayButtonClick);
-        Button satBtn = findViewById(R.id.button_sat);
-        satBtn.setOnClickListener(clickHandlers::dayButtonClick);
-        Button sunBtn = findViewById(R.id.button_sun);
-        sunBtn.setOnClickListener(clickHandlers::dayButtonClick);
-
-
-
+        binding.buttonTue.setOnClickListener(clickHandlers::dayButtonClick);
+        binding.buttonWed.setOnClickListener(clickHandlers::dayButtonClick);
+        binding.buttonThu.setOnClickListener(clickHandlers::dayButtonClick);
+        binding.buttonFri.setOnClickListener(clickHandlers::dayButtonClick);
+        binding.buttonSat.setOnClickListener(clickHandlers::dayButtonClick);
+        binding.buttonSun.setOnClickListener(clickHandlers::dayButtonClick);
 
 
         binding.fromInput.setOnClickListener(v -> {
@@ -133,22 +125,27 @@ public class NewJourneyActivity extends AppCompatActivity {
 
         listView.setOnItemClickListener((parent, view, position, id) -> {
             // checks if input is clicked then updates the correct text view
+            Station selectedStation = adapter.getItem(position);
+            if (selectedStation != null) {
+            Log.d("StationSelection", "Selected Station: " + selectedStation.getStation_name() + ", CRS: " + selectedStation.getCrs());
             if(isInputClicked)
             // Set selected item on TextView
             {
 
-                binding.fromInput.setText("  "+adapter.getItem(position).getStation_name());
+                binding.fromInput.setText(String.format("  %s (%s)", adapter.getItem(position).getStation_name(), adapter.getItem(position).getCrs()));
                 departure = adapter.getItem(position);
             } else {
 
-                destination = adapter.getItem(position);
-                binding.toInput.setText("  "+adapter.getItem(position).getStation_name());
 
+                binding.toInput.setText(String.format("  %s (%s)", adapter.getItem(position).getStation_name(), adapter.getItem(position).getCrs()));
+                destination = adapter.getItem(position);
             }
+        } else {
+            Log.e("StationSelection", "Selected station is null at position: " + position);
+        }
 
             // Dismiss dialog
             dialog.dismiss();
-
 
 
         });
