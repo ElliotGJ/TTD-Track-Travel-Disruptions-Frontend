@@ -49,7 +49,7 @@ public class EditJourneyActivity extends AppCompatActivity {
 
         journey = getIntent().getParcelableExtra("journey");
         if (journey == null) {
-            journey = new Journey(false, "", "", new HashSet<>(), "", new HashSet<>());
+            //journey = new Journey(false, "", "", new HashSet<>(), "", new HashSet<>());
         } else {
             if (journey.getDays() != null) {
                 selectedDays.addAll(journey.getDays());
@@ -129,10 +129,10 @@ public class EditJourneyActivity extends AppCompatActivity {
             Station selectedStation = adapter.getItem(position);
             if (isFromInput) {
                 binding.fromInput.setText(selectedStation.getStation_name());
-                journey.setOrigin(selectedStation.getStation_name());
+                //journey.setOrigin(selectedStation.getStation_name());
             } else {
                 binding.toInput.setText(selectedStation.getStation_name());
-                journey.setDestination(selectedStation.getStation_name());
+                //journey.setDestination(selectedStation.getStation_name());
             }
             dialog.dismiss();
         });

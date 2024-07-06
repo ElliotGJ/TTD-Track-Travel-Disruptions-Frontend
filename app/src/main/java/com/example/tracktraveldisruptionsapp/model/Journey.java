@@ -5,33 +5,36 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import com.example.tracktraveldisruptionsapp.BR;
+import androidx.databinding.library.baseAdapters.BR;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.DayOfWeek;
+import java.util.List;
 import java.util.Set;
 
 public class Journey extends BaseObservable implements Parcelable {
 
+    private Long userId;
+
     private Boolean notificationsEnabled;
 
-    private String origin;
+    private String originCRS;
 
-    private String destination;
+    private String destinationCRS;
 
     private Set<DayOfWeek> days;
 
     private String departureTime;
 
-    private Set<JourneyLeg> journeyLegs;
 
-    public Journey(Boolean notificationsEnabled, String origin, String destination, Set<DayOfWeek> days, String departureTime, Set<JourneyLeg> journeyLegs) {
+
+    public Journey(Long userId, Boolean notificationsEnabled, String originCRS, String destinationCRS, Set<DayOfWeek> days, String departureTime) {
+        this.userId = userId;
         this.notificationsEnabled = notificationsEnabled;
-        this.origin = origin;
-        this.destination = destination;
+        this.originCRS = originCRS;
+        this.destinationCRS = destinationCRS;
         this.days = days;
         this.departureTime = departureTime;
-        this.journeyLegs = journeyLegs;
     }
 
     public Journey() {
@@ -40,8 +43,8 @@ public class Journey extends BaseObservable implements Parcelable {
     protected Journey(Parcel in) {
         byte tmpNotificationsEnabled = in.readByte();
         notificationsEnabled = tmpNotificationsEnabled == 0 ? null : tmpNotificationsEnabled == 1;
-        origin = in.readString();
-        destination = in.readString();
+        originCRS = in.readString();
+        destinationCRS = in.readString();
         departureTime = in.readString();
     }
 
@@ -56,45 +59,26 @@ public class Journey extends BaseObservable implements Parcelable {
             return new Journey[size];
         }
     };
-@Bindable
-    public Boolean getNotificationsEnabled() {
-        return notificationsEnabled;
-    }
-    @Bindable
-    public String getOrigin() {
-        return origin;
-    }
-    @Bindable
-    public String getDestination() {
-        return destination;
-    }
-    @Bindable
-    public Set<DayOfWeek> getDays() {
-        return days;
-    }
-    @Bindable
-    public String getDepartureTime() {
-        return departureTime;
-    }
-    @Bindable
-    public Set<JourneyLeg> getJourneyLegs() {
-        return journeyLegs;
-    }
 
+    public void setUserId(Long userId) {
+        this.userId = userId;
+        notifyPropertyChanged(BR.userId);
+
+    }
 
     public void setNotificationsEnabled(Boolean notificationsEnabled) {
         this.notificationsEnabled = notificationsEnabled;
         notifyPropertyChanged(BR.notificationsEnabled);
     }
 
-    public void setOrigin(String origin) {
-        this.origin = origin;
-        notifyPropertyChanged(BR.origin);
+    public void setOriginCRS(String originCRS) {
+        this.originCRS = originCRS;
+        notifyPropertyChanged(BR.originCRS);
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-        notifyPropertyChanged(BR.destination);
+    public void setDestinationCRS(String destinationCRS) {
+        this.destinationCRS = destinationCRS;
+        notifyPropertyChanged(BR.destinationCRS);
     }
 
     public void setDays(Set<DayOfWeek> days) {
@@ -107,10 +91,37 @@ public class Journey extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.departureTime);
     }
 
-    public void setJourneyLegs(Set<JourneyLeg> journeyLegs) {
-        this.journeyLegs = journeyLegs;
-        notifyPropertyChanged(BR.journeyLegs);
+    @Bindable
+    public Boolean getNotificationsEnabled() {
+        return notificationsEnabled;
+
     }
+
+    @Bindable
+    public String getOriginCRS() {
+        return originCRS;
+    }
+
+    @Bindable
+    public String getDestinationCRS() {
+        return destinationCRS;
+    }
+
+    @Bindable
+    public Set<DayOfWeek> getDays() {
+        return days;
+    }
+
+    @Bindable
+    public String getDepartureTime() {
+        return departureTime;
+    }
+
+    @Bindable
+    public Long getUserId() {
+        return userId;
+    }
+
 
     @Override
     public int describeContents() {
@@ -120,9 +131,8 @@ public class Journey extends BaseObservable implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeByte((byte) (notificationsEnabled == null ? 0 : notificationsEnabled ? 1 : 2));
-        dest.writeString(origin);
-        dest.writeString(destination);
+        dest.writeString(originCRS);
+        dest.writeString(destinationCRS);
         dest.writeString(departureTime);
     }
 }
-

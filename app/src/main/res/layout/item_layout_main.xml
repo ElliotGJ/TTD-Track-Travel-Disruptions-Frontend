@@ -10,8 +10,8 @@
             name="journey"
             type="com.example.tracktraveldisruptionsapp.model.Journey" />
         <variable
-            name="journeyLeg"
-            type="com.example.tracktraveldisruptionsapp.model.JourneyLeg" />
+            name="raildata"
+            type="com.example.tracktraveldisruptionsapp.model.RailDataDTO" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -34,6 +34,8 @@
     <LinearLayout
         android:gravity="center"
         android:id="@+id/heading"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -56,11 +58,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:hint="Birmingham"
-            android:text="@{journey.destination}"
+            android:text="@{raildata.destinationStationName}"
             android:textColor="#5c3d99"
             android:textSize="25sp"
             app:layout_constraintStart_toEndOf="@+id/header_title"
             app:layout_constraintTop_toTopOf="parent" />
+
     </LinearLayout>
 
     <TableLayout
@@ -83,7 +86,7 @@
             <TextView
                 android:id="@+id/fromText"
                 tools:hint="London"
-                android:text="@{journey.origin}"
+                android:text="@{raildata.departureStationName}"
 
                 />
         </TableRow>
@@ -99,7 +102,7 @@
             <TextView
                 android:id="@+id/toText"
                 tools:hint="Birmingham"
-                android:text="@{journey.destination}"
+                android:text="@{raildata.destinationStationName}"
                 />
         </TableRow>
 
@@ -165,6 +168,7 @@
                     android:layout_width="wrap_content"
                     android:layout_marginStart="3dp"
                     />
+
             </LinearLayout>
 
         </TableRow>
@@ -193,7 +197,7 @@
             <TextView
                 android:id="@+id/TransportText"
                 tools:hint="Train"
-                android:text="@{journeyLeg.transportProvider}"
+                android:text="Train"
                 />
         </TableRow>
 
@@ -201,24 +205,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
             <TextView
+                android:textColor="#5c3d99"
+                android:id="@+id/serviceInfo"
                 android:layout_marginTop="10dp"
                 android:textAlignment="textEnd"
                 android:hint="Service On Time"
+
                 />
 
         </TableRow>
 
     </TableLayout>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
 
-            android:id="@+id/edit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_edit"
-            android:shadowColor="@drawable/item_bg"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="edit"/>
+    <ImageButton
+        android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/editbutton"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="10dp"
+        android:contentDescription="edit"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

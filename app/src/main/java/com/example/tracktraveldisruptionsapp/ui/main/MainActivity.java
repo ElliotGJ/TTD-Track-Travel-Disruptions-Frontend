@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.tracktraveldisruptionsapp.databinding.ActivityMainBinding;
+import com.example.tracktraveldisruptionsapp.model.BackendMap;
 import com.example.tracktraveldisruptionsapp.model.Journey;
 import com.example.tracktraveldisruptionsapp.resources.ItemSpaceDecorator;
 import com.example.tracktraveldisruptionsapp.ui.addjourney.NewJourneyActivity;
@@ -24,7 +25,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ArrayList<Journey> journeys;
+    private ArrayList<BackendMap> journeys;
     private JourneyAdapter journeyAdapter;
     private MainActivityViewModel viewModel;
     private ActivityMainBinding binding;
@@ -46,12 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void getAllJourneys(){
         viewModel.getRepositoryLiveData().observe(this, journeyList -> {
-            journeys = (ArrayList<Journey>) journeyList;
+            journeys = (ArrayList<BackendMap>) journeyList;
             if (journeys.isEmpty()){
                 showAddJourneyMessage(true);
             }else {
                 showAddJourneyMessage(false);
             }
+
             displayInRecyclerView();
         });
 
@@ -59,12 +61,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayInRecyclerView(){
         recyclerView = binding.recyclerView;
-        journeyAdapter = new JourneyAdapter(journeys,this, view -> {
+        journeyAdapter = new JourneyAdapter(journeys,this,view->{
             Journey journey = (Journey) view.getTag();
             Intent intent = new Intent(MainActivity.this, EditJourneyActivity.class);
             intent.putExtra("journey", journey);
             startActivity(intent);
         });
+
         recyclerView.setAdapter(journeyAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         ItemSpaceDecorator decorator = new ItemSpaceDecorator(40);

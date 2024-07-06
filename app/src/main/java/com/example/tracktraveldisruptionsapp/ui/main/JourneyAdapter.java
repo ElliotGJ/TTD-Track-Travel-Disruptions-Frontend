@@ -6,9 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.tracktraveldisruptionsapp.R;
 import com.example.tracktraveldisruptionsapp.databinding.ItemLayoutMainBinding;
+import com.example.tracktraveldisruptionsapp.model.BackendMap;
 import com.example.tracktraveldisruptionsapp.model.Journey;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,12 +24,12 @@ import java.util.Set;
 
 public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyViewHolder>{
 
-    List<Journey> journeys;
+    List<BackendMap> journeys;
     Context context;
     View.OnClickListener editClickListener;
 
 
-    public JourneyAdapter(List<Journey> journeys, Context context, View.OnClickListener editClickListener) {
+    public JourneyAdapter(List<BackendMap> journeys, Context context,View.OnClickListener editClickListener) {
         this.journeys = journeys;
         this.context = context;
         this.editClickListener = editClickListener;
@@ -43,18 +48,31 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull JourneyViewHolder journeyView, int position) {
-        Journey journey = journeys.get(position);
-        journeyView.itemLayoutBinding.setJourney(journey);
-        frequencyColourSetter(journey.getDays(),journeyView);
-
+        BackendMap journey = journeys.get(position);
+        journeyView.itemLayoutBinding.setJourney(journey.getJourneyDTO());
+        journeyView.itemLayoutBinding.setRaildata(journey.getRailDataDTO());
+        frequencyColourSetter(journey.getJourneyDTO().getDays(),journeyView);
+        imageSetter(journey.getRailDataDTO().getStd(),journey.getRailDataDTO().getEtd(),journeyView);
         journeyView.itemLayoutBinding.editButton.setTag(journey);
         journeyView.itemLayoutBinding.editButton.setOnClickListener(editClickListener);
+
 
     }
 
     @Override
     public int getItemCount() {
         return journeys.size();
+    }
+
+    public static class JourneyViewHolder extends RecyclerView.ViewHolder {
+
+        private ItemLayoutMainBinding itemLayoutBinding;
+
+        public JourneyViewHolder(ItemLayoutMainBinding itemLayoutBinding) {
+            super(itemLayoutBinding.getRoot());
+            this.itemLayoutBinding = itemLayoutBinding;
+        }
+
     }
 
     private void frequencyColourSetter(Set<DayOfWeek> days, JourneyViewHolder journeyView ){
@@ -82,15 +100,23 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
 
     }
 
+    private void imageSetter(String std, String etd,JourneyViewHolder journeyView){
+        ImageView journeyIcon = journeyView.itemLayoutBinding.journeyLineImg;
+        TextView textView = journeyView.itemLayoutBinding.serviceInfo;
+        if (etd.equalsIgnoreCase("On time")){
+            journeyIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.journeyok));
+            textView.setText("Service On Time");
 
-    public static class JourneyViewHolder extends RecyclerView.ViewHolder {
-
-        private ItemLayoutMainBinding itemLayoutBinding;
-
-        public JourneyViewHolder(ItemLayoutMainBinding itemLayoutBinding) {
-            super(itemLayoutBinding.getRoot());
-            this.itemLayoutBinding = itemLayoutBinding;
+        }else if(!etd.equalsIgnoreCase(std)){
+            journeyIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.journeydisrupt_two));
+            textView.setText("1 Delay!");
+        }else if(etd.equalsIgnoreCase("Cancelled")){
+            journeyIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.journeydisrupt_two));
+            textView.setText("Service Cancelled!");
+        }else if(etd == null){
+            journeyIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pendinginfo));
+            textView.setText("Service Info will be avaliable within 2 hours of departure time.");
         }
-
     }
+
 }

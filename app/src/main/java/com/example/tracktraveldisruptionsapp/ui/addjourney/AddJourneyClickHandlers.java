@@ -11,10 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
 import androidx.fragment.app.DialogFragment;
-import com.example.tracktraveldisruptionsapp.model.Journey;
-import com.example.tracktraveldisruptionsapp.model.JourneyLeg;
 import com.example.tracktraveldisruptionsapp.model.Station;
-import com.example.tracktraveldisruptionsapp.ui.editjourney.EditJourneyActivity;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivity;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivityViewModel;
 
@@ -60,9 +57,9 @@ public class AddJourneyClickHandlers {
         if(buttonStatesMap.get("Sat")) frequency.add(DayOfWeek.SATURDAY);
         if(buttonStatesMap.get("Sun")) frequency.add(DayOfWeek.SUNDAY);
 
-        JourneyLeg leg1 = new JourneyLeg(departure.getStation_name(), departure.getCrs(), destination.getStation_name(), destination.getCrs(), 1, "Cross-Country");
-        Set<JourneyLeg> legs = new HashSet<>();
-        legs.add(leg1);
+        //RailData leg1 = new RailData(departure.getStation_name(), departure.getCrs(), destination.getStation_name(), destination.getCrs(), 1, "Cross-Country");
+        Set<DayOfWeek> legs = new HashSet<>();
+        //legs.add(leg1);
        // viewModel.addJourney(new Journey(false, departure.getStation_name(), destination.getStation_name(), frequency, "14:00", legs));
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);

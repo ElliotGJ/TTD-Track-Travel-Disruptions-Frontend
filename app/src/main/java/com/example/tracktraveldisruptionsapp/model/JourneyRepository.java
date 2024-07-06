@@ -14,20 +14,20 @@ import java.util.List;
 
 public class JourneyRepository {
 
-    private MutableLiveData<List<Journey>> mutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<BackendMap>> mutableLiveData = new MutableLiveData<>();
     private Application application;
 
     public JourneyRepository(Application application) {
         this.application = application;
     }
 
-    public MutableLiveData<List<Journey>> getMutableLiveData() {
+    public MutableLiveData<List<BackendMap>> getMutableLiveData() {
         TTDApiService service = RetrofitInstance.getService();
-        Call<List<Journey>> call = service.getAllJourneys();
-        call.enqueue(new Callback<List<Journey>>() {
+        Call<List<BackendMap>> call = service.getAllJourneys();
+        call.enqueue(new Callback<List<BackendMap>>() {
             @Override
-            public void onResponse(Call<List<Journey>> call, Response<List<Journey>> response) {
-                List<Journey> journeys = response.body();
+            public void onResponse(Call<List<BackendMap>> call, Response<List<BackendMap>> response) {
+                List<BackendMap> journeys = response.body();
                 Log.i("JOURNEYLISTLOG",""+response.code());
                 Log.i("JOURNEYLISTLOG", journeys.toString());
                 Log.i("JOURNEYLISTLOG","ON SUCCESS");
@@ -37,7 +37,7 @@ public class JourneyRepository {
             }
 
             @Override
-            public void onFailure(Call<List<Journey>> call, Throwable throwable) {
+            public void onFailure(Call<List<BackendMap>> call, Throwable throwable) {
                 Log.i("JOURNEYLISTLOG","FAILURE");
                 Log.i("JOURNEYLISTLOG",throwable.getLocalizedMessage());
             }
