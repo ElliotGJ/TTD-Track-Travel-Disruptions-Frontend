@@ -28,4 +28,11 @@ public class BackendMap {
         return railDataDTO;
     }
 
+    @Override
+    public String toString() {
+        return "BackendMap{" +
+                "journeyDTO=" + journeyDTO +
+                ", railDataDTO=" + railDataDTO +
+                '}';
+    }
 }

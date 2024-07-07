@@ -128,7 +128,7 @@ public class EditJourneyActivity extends AppCompatActivity {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Station selectedStation = adapter.getItem(position);
             if (isFromInput) {
-                binding.fromInput.setText(selectedStation.getStation_name());
+                binding.fromInput.setText(selectedStation.getStation_name() + " " + selectedStation.getCrs()  );
                 //journey.setOrigin(selectedStation.getStation_name());
             } else {
                 binding.toInput.setText(selectedStation.getStation_name());

@@ -227,6 +227,28 @@ public class RailDataDTO extends BaseObservable {
         this.cancelled = cancelled;
         notifyPropertyChanged(BR.cancelled);
     }
+
+    @Override
+    public String toString() {
+        return "RailDataDTO{" +
+                "generatedAt='" + generatedAt + '\'' +
+                ", departureStationCrs='" + departureStationCrs + '\'' +
+                ", departureStationName='" + departureStationName + '\'' +
+                ", destinationStationCrs='" + destinationStationCrs + '\'' +
+                ", destinationStationName='" + destinationStationName + '\'' +
+                ", etd='" + etd + '\'' +
+                ", std='" + std + '\'' +
+                ", platform='" + platform + '\'' +
+                ", eta='" + eta + '\'' +
+                ", sta='" + sta + '\'' +
+                ", cancelReason='" + cancelReason + '\'' +
+                ", delayReason='" + delayReason + '\'' +
+                ", serviceID='" + serviceID + '\'' +
+                ", affectedBy='" + affectedBy + '\'' +
+                ", filterLocationCancelled=" + filterLocationCancelled +
+                ", cancelled=" + cancelled +
+                '}';
+    }
 }
 
 

@@ -135,4 +135,16 @@ public class Journey extends BaseObservable implements Parcelable {
         dest.writeString(destinationCRS);
         dest.writeString(departureTime);
     }
+
+    @Override
+    public String toString() {
+        return "Journey{" +
+                "userId=" + userId +
+                ", notificationsEnabled=" + notificationsEnabled +
+                ", originCRS='" + originCRS + '\'' +
+                ", destinationCRS='" + destinationCRS + '\'' +
+                ", days=" + days +
+                ", departureTime='" + departureTime + '\'' +
+                '}';
+    }
 }
