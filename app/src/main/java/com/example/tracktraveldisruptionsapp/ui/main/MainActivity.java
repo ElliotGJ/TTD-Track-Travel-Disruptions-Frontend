@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
     private void displayInRecyclerView(){
         recyclerView = binding.recyclerView;
         journeyAdapter = new JourneyAdapter(journeys,this,view->{
-            Journey journey = (Journey) view.getTag();
+            BackendMap backendMap = (BackendMap) view.getTag();
+            Journey journey = backendMap.getJourneyDTO();
             Intent intent = new Intent(MainActivity.this, EditJourneyActivity.class);
             intent.putExtra("journey", journey);
             startActivity(intent);
