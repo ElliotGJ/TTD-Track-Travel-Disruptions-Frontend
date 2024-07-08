@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private void getAllJourneys(){
         viewModel.getRepositoryLiveData().observe(this, journeyList -> {
             journeys = (ArrayList<BackendMap>) journeyList;
-            if (journeys.isEmpty()){
+            if (journeys == null || journeys.isEmpty()){
                 showAddJourneyMessage(true);
             }else {
                 showAddJourneyMessage(false);
