@@ -4,6 +4,7 @@ import com.example.tracktraveldisruptionsapp.model.BackendMap;
 import com.example.tracktraveldisruptionsapp.model.Journey;
 import com.example.tracktraveldisruptionsapp.model.Station;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -16,7 +17,7 @@ public interface TTDApiService {
     Call<List<BackendMap>> getAllJourneys();
 
     @POST("journey")
-    Call<Journey> postJourneys();
+    Call<Journey> postJourneys(@Body Journey journey);
 
     @PUT("journey/{id}")
     Call<Journey> updateJourney(Journey journey);

@@ -1,30 +1,40 @@
 package com.example.tracktraveldisruptionsapp.model;
 
-public class JourneyLeg {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class JourneyLeg implements Parcelable {
 
     private String origin;
-
     private String originCRS;
-
     private String destination;
-
     private String destinationCRS;
 
-    private int legOrder;
-
-    private String transportProvider;
-
-    public JourneyLeg(String origin, String originCRS, String destination, String destinationCRS, int legOrder, String transportProvider) {
+    public JourneyLeg(String origin, String originCRS, String destination, String destinationCRS) {
         this.origin = origin;
         this.originCRS = originCRS;
         this.destination = destination;
         this.destinationCRS = destinationCRS;
-        this.legOrder = legOrder;
-        this.transportProvider = transportProvider;
     }
 
-    public JourneyLeg() {
+    protected JourneyLeg(Parcel in) {
+        origin = in.readString();
+        originCRS = in.readString();
+        destination = in.readString();
+        destinationCRS = in.readString();
     }
+
+    public static final Creator<JourneyLeg> CREATOR = new Creator<JourneyLeg>() {
+        @Override
+        public JourneyLeg createFromParcel(Parcel in) {
+            return new JourneyLeg(in);
+        }
+
+        @Override
+        public JourneyLeg[] newArray(int size) {
+            return new JourneyLeg[size];
+        }
+    };
 
     public String getOrigin() {
         return origin;
@@ -42,11 +52,26 @@ public class JourneyLeg {
         return destinationCRS;
     }
 
-    public int getLegOrder() {
-        return legOrder;
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public String getTransportProvider() {
-        return transportProvider;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(origin);
+        dest.writeString(originCRS);
+        dest.writeString(destination);
+        dest.writeString(destinationCRS);
+    }
+
+    @Override
+    public String toString() {
+        return "JourneyLeg{" +
+                "origin='" + origin + '\'' +
+                ", originCRS='" + originCRS + '\'' +
+                ", destination='" + destination + '\'' +
+                ", destinationCRS='" + destinationCRS + '\'' +
+                '}';
     }
 }

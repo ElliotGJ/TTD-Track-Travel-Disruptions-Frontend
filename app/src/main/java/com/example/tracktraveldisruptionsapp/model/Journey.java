@@ -15,26 +15,21 @@ import java.util.Set;
 public class Journey extends BaseObservable implements Parcelable {
 
     private Long userId;
-
     private Boolean notificationsEnabled;
-
     private String originCRS;
-
     private String destinationCRS;
-
     private Set<DayOfWeek> days;
-
     private String departureTime;
+    private List<JourneyLeg> journeyLegs; // Added for journey legs
 
-
-
-    public Journey(Long userId, Boolean notificationsEnabled, String originCRS, String destinationCRS, Set<DayOfWeek> days, String departureTime) {
+    public Journey(Long userId, Boolean notificationsEnabled, String originCRS, String destinationCRS, Set<DayOfWeek> days, String departureTime, List<JourneyLeg> journeyLegs) {
         this.userId = userId;
         this.notificationsEnabled = notificationsEnabled;
         this.originCRS = originCRS;
         this.destinationCRS = destinationCRS;
         this.days = days;
         this.departureTime = departureTime;
+        this.journeyLegs = journeyLegs;
     }
 
     public Journey() {
@@ -46,6 +41,7 @@ public class Journey extends BaseObservable implements Parcelable {
         originCRS = in.readString();
         destinationCRS = in.readString();
         departureTime = in.readString();
+        journeyLegs = in.createTypedArrayList(JourneyLeg.CREATOR); // Parcelable for journey legs
     }
 
     public static final Creator<Journey> CREATOR = new Creator<Journey>() {
@@ -63,7 +59,6 @@ public class Journey extends BaseObservable implements Parcelable {
     public void setUserId(Long userId) {
         this.userId = userId;
         notifyPropertyChanged(BR.userId);
-
     }
 
     public void setNotificationsEnabled(Boolean notificationsEnabled) {
@@ -91,10 +86,14 @@ public class Journey extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.departureTime);
     }
 
+    public void setJourneyLegs(List<JourneyLeg> journeyLegs) {
+        this.journeyLegs = journeyLegs;
+        notifyPropertyChanged(BR.journeyLegs);
+    }
+
     @Bindable
     public Boolean getNotificationsEnabled() {
         return notificationsEnabled;
-
     }
 
     @Bindable
@@ -122,6 +121,10 @@ public class Journey extends BaseObservable implements Parcelable {
         return userId;
     }
 
+    @Bindable
+    public List<JourneyLeg> getJourneyLegs() {
+        return journeyLegs;
+    }
 
     @Override
     public int describeContents() {
@@ -134,6 +137,7 @@ public class Journey extends BaseObservable implements Parcelable {
         dest.writeString(originCRS);
         dest.writeString(destinationCRS);
         dest.writeString(departureTime);
+        dest.writeTypedList(journeyLegs); // Parcelable for journey legs
     }
 
     @Override
@@ -145,6 +149,7 @@ public class Journey extends BaseObservable implements Parcelable {
                 ", destinationCRS='" + destinationCRS + '\'' +
                 ", days=" + days +
                 ", departureTime='" + departureTime + '\'' +
+                ", journeyLegs=" + journeyLegs +
                 '}';
     }
 }

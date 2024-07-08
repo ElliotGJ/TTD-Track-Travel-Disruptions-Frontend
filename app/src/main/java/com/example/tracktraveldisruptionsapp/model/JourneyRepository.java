@@ -45,19 +45,24 @@ public class JourneyRepository {
         return mutableLiveData;
     }
 
-    public void postJourneys(Journey journey){
+    public void postJourneys(Journey journey) {
         TTDApiService service = RetrofitInstance.getService();
-        Call<Journey> call = service.postJourneys();
+        Call<Journey> call = service.postJourneys(journey);
         call.enqueue(new Callback<Journey>() {
             @Override
             public void onResponse(Call<Journey> call, Response<Journey> response) {
-                Toast.makeText(application.getApplicationContext(),"Journey added successfully.",Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful() && response.body() != null) {
+                    Toast.makeText(application.getApplicationContext(), "Journey added successfully.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(application.getApplicationContext(), "Failed to add new journey! " + response.message(), Toast.LENGTH_SHORT).show();
+                    Log.e("postJourney", "Failed to add new journey: " + response.message());
+                }
             }
 
             @Override
             public void onFailure(Call<Journey> call, Throwable throwable) {
-                Toast.makeText(application.getApplicationContext(),"Failed to add new journey!",Toast.LENGTH_SHORT).show();
-                Log.d("postJourney", "onFailure: "+throwable.getLocalizedMessage());
+                Toast.makeText(application.getApplicationContext(), "Failed to add new journey!", Toast.LENGTH_SHORT).show();
+                Log.e("postJourney", "onFailure: " + throwable.getLocalizedMessage());
             }
         });
     }

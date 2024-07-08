@@ -52,7 +52,7 @@ public class NewJourneyActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_station_selection);
 
         MainActivityViewModel viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        AddJourneyClickHandlers clickHandlers = new AddJourneyClickHandlers(departure,destination,this,viewModel);
+        AddJourneyClickHandlers clickHandlers = new AddJourneyClickHandlers(this,this,viewModel);
 
         FloatingActionButton backBtn = findViewById(R.id.fab_back);
         backBtn.setOnClickListener(clickHandlers::backButton);
