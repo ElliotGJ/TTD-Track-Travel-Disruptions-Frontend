@@ -30,4 +30,7 @@ public class MainActivityViewModel extends AndroidViewModel {
     public void updateJourney(Journey journey) {
         journeyRepository.updateJourney(journey);
     }
+    public void deleteJourney(Journey journey) {
+        journeyRepository.deleteJourney(journey);
+    }
 }

@@ -51,10 +51,14 @@ public class EditJourneyActivity extends AppCompatActivity {
         if (journey == null) {
             //journey = new Journey(false, "", "", new HashSet<>(), "", new HashSet<>());
         } else {
-            if (journey.getDays() != null) {
-                selectedDays.addAll(journey.getDays());
-            }
+            binding.setJourney(journey);
+            binding.fromInput.setText(journey.getOriginCRS());
+            binding.toInput.setText(journey.getDestinationCRS());
+            selectedDays.addAll(journey.getDays());
+            binding.departureTimeInput.setText(journey.getDepartureTime());
+
         }
+
 
         clickHandlers = new EditJourneyClickHandlers(this, journey, selectedDays, viewModel, binding);
 
@@ -63,6 +67,9 @@ public class EditJourneyActivity extends AppCompatActivity {
 
         ExtendedFloatingActionButton saveBtn = findViewById(R.id.button_next);
         saveBtn.setOnClickListener(clickHandlers::onSaveClicked);
+
+        ExtendedFloatingActionButton deleteButton = findViewById(R.id.button_delete);
+        deleteButton.setOnClickListener(v -> clickHandlers.onDeleteClicked(v));
 
         Button timeBtn = findViewById(R.id.departure_time_input);
         timeBtn.setOnClickListener(view -> clickHandlers.showTimePickerDialog(timeBtn));
@@ -128,10 +135,10 @@ public class EditJourneyActivity extends AppCompatActivity {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             Station selectedStation = adapter.getItem(position);
             if (isFromInput) {
-                binding.fromInput.setText(selectedStation.getStation_name() + " " + selectedStation.getCrs()  );
+                binding.fromInput.setText(selectedStation.getStation_name() + " " + selectedStation.getCrs());
                 //journey.setOrigin(selectedStation.getStation_name());
             } else {
-                binding.toInput.setText(selectedStation.getStation_name());
+                binding.toInput.setText(selectedStation.getStation_name() + " " + selectedStation.getCrs());
                 //journey.setDestination(selectedStation.getStation_name());
             }
             dialog.dismiss();

@@ -46,6 +46,12 @@ public class EditJourneyClickHandlers {
         context.startActivity(intent);
     }
 
+    public void onDeleteClicked(View view) {
+        viewModel.deleteJourney(journey);
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+    }
+
     public void showTimePickerDialog(Button timeBtn) {
         LocalTime currentTime = LocalTime.parse(journey.getDepartureTime(), DateTimeFormatter.ofPattern("HH:mm"));
         TimePickerDialog timePickerDialog = new TimePickerDialog(context,
