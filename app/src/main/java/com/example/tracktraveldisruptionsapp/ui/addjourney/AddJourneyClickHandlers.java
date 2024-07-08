@@ -30,6 +30,8 @@ public class AddJourneyClickHandlers {
     private Map<String, Boolean> buttonStatesMap;
     private static final String TAG = "AddJourneyClickHandlers";
 
+    private String userSelectedTime = "14:00"; // Default time
+
     public AddJourneyClickHandlers(NewJourneyActivity activity, Context context, MainActivityViewModel viewModel) {
         this.activity = activity;
         this.context = context;
@@ -65,7 +67,7 @@ public class AddJourneyClickHandlers {
         List<JourneyLeg> journeyLegs = new ArrayList<>();
         journeyLegs.add(new JourneyLeg(departure.getStation_name(), departure.getCrs(), destination.getStation_name(), destination.getCrs()));
 
-        Journey newJourney = new Journey(1L, true, departure.getCrs(), destination.getCrs(), frequency, "14:00", journeyLegs);
+        Journey newJourney = new Journey(1L, true, departure.getCrs(), destination.getCrs(), frequency, userSelectedTime, journeyLegs);
 
         Gson gson = new Gson();
         String json = gson.toJson(newJourney);
@@ -107,12 +109,20 @@ public class AddJourneyClickHandlers {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(context, (view1, hourOfDay, minute1) ->
-                setTimeBtn.setText(String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute1)), hour, minute, false);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(context, (view1, hourOfDay, minute1) -> {
+            userSelectedTime = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute1);
+            setTimeBtn.setText(userSelectedTime);
+        }, hour, minute, false);
         timePickerDialog.show();
     }
 
     public static class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+
+        private AddJourneyClickHandlers clickHandlers;
+
+        public TimePickerFragment(AddJourneyClickHandlers clickHandlers) {
+            this.clickHandlers = clickHandlers;
+        }
 
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -125,7 +135,8 @@ public class AddJourneyClickHandlers {
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            // You can handle the selected time here if needed
+            String selectedTime = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute);
+            clickHandlers.userSelectedTime = selectedTime;
         }
     }
 }
