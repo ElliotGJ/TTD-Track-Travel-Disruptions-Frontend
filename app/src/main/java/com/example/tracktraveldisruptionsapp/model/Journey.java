@@ -14,6 +14,9 @@ import java.util.Set;
 
 public class Journey extends BaseObservable implements Parcelable {
 
+    @SerializedName("id")
+    private Long journeyID;
+
     private Long userId;
     private Boolean notificationsEnabled;
     private String originCRS;
@@ -22,7 +25,8 @@ public class Journey extends BaseObservable implements Parcelable {
     private String departureTime;
     private List<JourneyLeg> journeyLegs; // Added for journey legs
 
-    public Journey(Long userId, Boolean notificationsEnabled, String originCRS, String destinationCRS, Set<DayOfWeek> days, String departureTime, List<JourneyLeg> journeyLegs) {
+    public Journey(Long journeyID, Long userId, Boolean notificationsEnabled, String originCRS, String destinationCRS, Set<DayOfWeek> days, String departureTime, List<JourneyLeg> journeyLegs) {
+        this.journeyID = journeyID;
         this.userId = userId;
         this.notificationsEnabled = notificationsEnabled;
         this.originCRS = originCRS;
@@ -143,6 +147,7 @@ public class Journey extends BaseObservable implements Parcelable {
     @Override
     public String toString() {
         return "Journey{" +
+                "journeyId"+journeyID+
                 "userId=" + userId +
                 ", notificationsEnabled=" + notificationsEnabled +
                 ", originCRS='" + originCRS + '\'' +
@@ -151,5 +156,9 @@ public class Journey extends BaseObservable implements Parcelable {
                 ", departureTime='" + departureTime + '\'' +
                 ", journeyLegs=" + journeyLegs +
                 '}';
+    }
+
+    public Long getJourneyID() {
+        return journeyID;
     }
 }

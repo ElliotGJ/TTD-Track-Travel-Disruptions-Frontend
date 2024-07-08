@@ -61,6 +61,9 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
 
     @Override
     public int getItemCount() {
+        if(journeys == null){
+            return 0;
+        }
         return journeys.size();
     }
 
