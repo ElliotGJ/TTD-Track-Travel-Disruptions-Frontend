@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import androidx.fragment.app.DialogFragment;
 import com.example.tracktraveldisruptionsapp.model.Journey;
 import com.example.tracktraveldisruptionsapp.model.JourneyLeg;
@@ -30,7 +31,7 @@ public class AddJourneyClickHandlers {
     private Map<String, Boolean> buttonStatesMap;
     private static final String TAG = "AddJourneyClickHandlers";
 
-    private String userSelectedTime = "14:00"; // Default time
+    private String userSelectedTime = ""; // Default time
 
     public AddJourneyClickHandlers(NewJourneyActivity activity, Context context, MainActivityViewModel viewModel) {
         this.activity = activity;
@@ -56,8 +57,28 @@ public class AddJourneyClickHandlers {
         Station departure = activity.getDeparture();
         Station destination = activity.getDestination();
 
-        if (departure == null || destination == null) {
-            Log.e(TAG, "Departure or destination station is null");
+        // Validate user inputs
+        if (departure == null) {
+            Toast.makeText(context, "Please select a departure station", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Departure station is null");
+            return;
+        }
+
+        if (destination == null) {
+            Toast.makeText(context, "Please select a destination station", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Destination station is null");
+            return;
+        }
+
+        if (frequency.isEmpty()) {
+            Toast.makeText(context, "Please select at least one day for the journey", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Frequency is empty");
+            return;
+        }
+
+        if (userSelectedTime.isEmpty()) {
+            Toast.makeText(context, "Please select a departure time", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Departure time is not set");
             return;
         }
 
