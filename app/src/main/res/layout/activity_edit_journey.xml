@@ -347,6 +347,7 @@
                 android:text="Next"
                 android:backgroundTint="#38A3A5"
                 android:textColor="#5B3198"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
