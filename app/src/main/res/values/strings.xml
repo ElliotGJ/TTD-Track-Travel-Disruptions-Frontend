@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Track Travel Disruptions App</string>
+    <string name="app_name">Track Travel Disruptions</string>
+    <string name="dsa_self_paced">DSA Self Paced</string>
+    <string name="complete_interview_prep">Complete Interview Prep</string>
+    <string name="amazon_sde_test_series">Amazon SDE Test Series</string>
+    <string name="compiler_design">Compiler Design</string>
+    <string name="git_github">Git GitHub</string>
+    <string name="python_foundation">Python Foundation</string>
+    <string name="operating_systems">Operating Systems</string>
+    <string name="theory_of_computation">Theory of Computation</string>
 </resources>

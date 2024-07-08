@@ -7,7 +7,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <TextView
         android:id="@+id/appTitle"
@@ -24,17 +24,55 @@
     <TextView
         android:id="@+id/pageTitle"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:gravity="bottom|center"
-        android:textSize="45sp"
+        android:textSize="35sp"
         android:text="Journeys"
         android:textColor="#5c3d99"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appTitle"
          />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="Add"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:backgroundTint="#38A3A5" />
+
+    <ImageView
+        android:id="@+id/noJourneyImg"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/pinpathimg"
+        android:layout_marginTop="150dp"
+        app:layout_constraintTop_toTopOf="@id/pageTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"
+        />
+
+    <TextView
+        android:id="@+id/noJourneyMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add a journey to get started"
+        android:textStyle="bold"
+        android:textColor="#57cc99"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/noJourneyImg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
