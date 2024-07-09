@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import com.example.tracktraveldisruptionsapp.R;
 import com.example.tracktraveldisruptionsapp.databinding.ActivityEditJourneyBinding;
 import com.example.tracktraveldisruptionsapp.model.Journey;
+import com.example.tracktraveldisruptionsapp.model.JourneyLeg;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivity;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivityViewModel;
 import retrofit2.Call;
@@ -22,6 +23,8 @@ import retrofit2.Response;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static android.content.ContentValues.TAG;
@@ -79,37 +82,17 @@ public class EditJourneyClickHandlers {
             return;
         }
 
+        journey.setOriginCRS(departureCrs);
+        journey.setDestinationCRS(destinationCrs);
+        journey.setDepartureTime(userSelectedTime);
+
+        List<JourneyLeg> journeyLegs = new ArrayList<>();
+        journey.setJourneyLegs(journeyLegs);
+
         viewModel.updateJourney(journey.getJourneyID(), journey);
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
-
-//        validateJourneyAndSubmit(journey);
-
     }
-
-//    private void validateJourneyAndSubmit(@NonNull Journey journey) {
-//        viewModel.validateJourney(journey, new Callback<Void>() {
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                if (response.isSuccessful()) {
-//                    // If the journey is valid, add the journey
-//                    viewModel.addJourney(journey);
-//                } else {
-//                    // If no route is found
-//                    Toast.makeText(context, "No route found for the selected stations. Please try different stations.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Void> call, Throwable t) {
-//                // If validation fails
-//                Toast.makeText(context, "Failed to validate journey. Please try again later", Toast.LENGTH_SHORT).show();
-//                Log.e(TAG, "Failed to validate journey", t);
-//            }
-//        });
-//    }
-
-
 
     public void onDeleteClicked(View view) {
         Log.e("Delete", "Delete journey: " + journey.getJourneyID());
@@ -119,15 +102,18 @@ public class EditJourneyClickHandlers {
     }
 
     public void showTimePickerDialog(Button timeBtn) {
-        LocalTime currentTime = LocalTime.parse(journey.getDepartureTime(), DateTimeFormatter.ofPattern("hh:mm"));
+        // Adjust the time string to exclude seconds
+        String timeWithoutSeconds = journey.getDepartureTime().substring(0, 5);
+        LocalTime currentTime = LocalTime.parse(timeWithoutSeconds, DateTimeFormatter.ofPattern("HH:mm"));
         TimePickerDialog timePickerDialog = new TimePickerDialog(context,
                 (TimePicker view, int hourOfDay, int minute) -> {
                     String time = String.format("%02d:%02d", hourOfDay, minute);
                     timeBtn.setText(time);
-                    journey.setDepartureTime(time);
+                    journey.setDepartureTime(time + ":00"); // Update journey time to include seconds
                 }, currentTime.getHour(), currentTime.getMinute(), true);
         timePickerDialog.show();
     }
+
 
     public void onDayButtonClick(View view) {
         if (view instanceof Button) {
