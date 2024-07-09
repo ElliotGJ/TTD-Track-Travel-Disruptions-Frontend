@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             BackendMap backendMap = (BackendMap) view.getTag();
             Journey journey = backendMap.getJourneyDTO();
             Intent intent = new Intent(MainActivity.this, EditJourneyActivity.class);
-            intent.putExtra("journey", journey);
+            intent.putExtra("JOURNEY_OBJECT", journey);
             startActivity(intent);
         });
 
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             Journey journey = backendMap.getJourneyDTO();
             Intent intent = new Intent(MainActivity.this, EditJourneyActivity.class);
             System.out.println("JourneysObj "+ journey);
-            intent.putExtra("JOURNEY_OBJECT", journey);
+
 //            intent.putExtra("journeyID", journey.getJourneyID());
 
             startActivity(intent);

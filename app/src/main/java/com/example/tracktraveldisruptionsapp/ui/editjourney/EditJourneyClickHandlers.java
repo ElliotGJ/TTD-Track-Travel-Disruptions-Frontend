@@ -49,10 +49,10 @@ public class EditJourneyClickHandlers {
 
     public void onSaveClicked(View view) {
         journey.setDays(selectedDays);
-        // Retrieve input values
+
         String departureCrs = binding.fromInput.getText().toString();
         String destinationCrs = binding.toInput.getText().toString();
-        String userSelectedTime = journey.getDepartureTime();
+        String userSelectedTime = binding.departureTimeInput.getText().toString();
 
         // Validate user inputs
         if (departureCrs.isEmpty()) {
@@ -79,9 +79,9 @@ public class EditJourneyClickHandlers {
             return;
         }
 
-        journey.setOriginCRS(departureCrs);
-        journey.setDestinationCRS(destinationCrs);
-        viewModel.addJourney(journey);
+        viewModel.updateJourney(journey.getJourneyID(), journey);
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
 
 //        validateJourneyAndSubmit(journey);
 
