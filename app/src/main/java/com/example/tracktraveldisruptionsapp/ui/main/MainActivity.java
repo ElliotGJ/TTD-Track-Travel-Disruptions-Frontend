@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
         //Prevent repeat added space between items
         recyclerView.setAdapter(journeyAdapter);
-
         getAllJourneys();
     }
 

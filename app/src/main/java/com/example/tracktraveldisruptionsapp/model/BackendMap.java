@@ -28,6 +28,10 @@ public class BackendMap {
         return railDataDTO;
     }
 
+    public void setRailDataDTO(RailDataDTO railDataDTO) {
+        this.railDataDTO = railDataDTO;
+    }
+
     @Override
     public String toString() {
         return "BackendMap{" +

@@ -1,6 +1,7 @@
 package com.example.tracktraveldisruptionsapp.ui.main;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,19 +16,24 @@ import com.example.tracktraveldisruptionsapp.R;
 import com.example.tracktraveldisruptionsapp.databinding.ItemLayoutMainBinding;
 import com.example.tracktraveldisruptionsapp.model.BackendMap;
 import com.example.tracktraveldisruptionsapp.model.Journey;
+import com.example.tracktraveldisruptionsapp.model.RailDataDTO;
+import com.example.tracktraveldisruptionsapp.model.Station;
+import com.google.gson.Gson;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyViewHolder>{
 
     List<BackendMap> journeys;
     Context context;
     View.OnClickListener editClickListener;
+    boolean isRailDataSet = false;
 
 
     public JourneyAdapter(List<BackendMap> journeys, Context context,View.OnClickListener editClickListener) {
@@ -52,21 +58,31 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         BackendMap journey = journeys.get(position);
         if (journey != null) {
             journeyView.itemLayoutBinding.setJourney(journey.getJourneyDTO());
+            frequencyColourSetter(journey.getJourneyDTO().getDays(),journeyView);
 
-            if (journey.getRailDataDTO() != null) {
-                journeyView.itemLayoutBinding.setRaildata(journey.getRailDataDTO());
-                frequencyColourSetter(journey.getJourneyDTO().getDays(), journeyView);
 
-                String std = journey.getRailDataDTO().getStd();
-                String etd = journey.getRailDataDTO().getEtd();
-
-                imageSetter(std, etd, journeyView);
-            } else {
-                // Handle case where RailDataDTO is null
-                journeyView.itemLayoutBinding.setRaildata(null);
+            if (journey.getRailDataDTO() != null ) {
+                if(journey.getRailDataDTO().getEtd() != null) {
+                    journeyView.itemLayoutBinding.setRaildata(journey.getRailDataDTO());
+                    String std = journey.getRailDataDTO().getStd();
+                    String etd = journey.getRailDataDTO().getEtd();
+                    imageSetter(std, etd, journeyView);
+                }
+            } else if(journey.getRailDataDTO() == null) {
                 // Set default or empty values for views that depend on RailDataDTO
                 journeyView.itemLayoutBinding.journeyLineImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pendinginfo));
                 journeyView.itemLayoutBinding.serviceInfo.setText("No Rail Data Available");
+                String departureName=  getStationName(journey.getJourneyDTO().getOriginCRS());
+                String destinationName = getStationName(journey.getJourneyDTO().getDestinationCRS());
+                journey.setRailDataDTO(new RailDataDTO(null,journey.getJourneyDTO().getOriginCRS(),departureName,
+                        journey.getJourneyDTO().getDestinationCRS(),destinationName,null,null,null,null,
+                        null,null,null,null,null,null,null));
+                Log.d("RAILDATASET",journey.getRailDataDTO().toString());
+                journeyView.itemLayoutBinding.setRaildata(journey.getRailDataDTO());
+
+
+                //setStationTextView(departureName,destinationName,journeyView);
+
             }
 
             journeyView.itemLayoutBinding.editButton.setTag(journey);
@@ -156,5 +172,28 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         this.journeys.addAll(newJourneys);
         notifyDataSetChanged();
     }
+
+    private String getStationName(String crs){
+        BufferedReader br;
+        try {
+            AssetManager assetManager = context.getAssets();
+            InputStream inputStream = assetManager.open("uk-train-stations.json");
+            br = new BufferedReader(new InputStreamReader(inputStream));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        Station[] stations = new Gson().fromJson(br, Station[].class);
+
+        Station station =Arrays.stream(stations).filter(s-> s.getCrs().equals(crs)).findAny().get();
+        return station.getStation_name();
+    }
+
+//    private void setStationTextView(String departure, String destination,JourneyViewHolder view){
+//        view.itemLayoutBinding.cityTo.setText(destination);
+//        view.itemLayoutBinding.toText.setText(destination);
+//        view.itemLayoutBinding.fromText.setText(departure);
+//
+//    }
+
 
 }

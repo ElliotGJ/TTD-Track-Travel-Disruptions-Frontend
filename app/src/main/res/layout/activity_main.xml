@@ -32,27 +32,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/appTitle" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/addbutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:contentDescription="Add"
-                android:src="@android:drawable/ic_input_add"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:backgroundTint="#38A3A5" app:layout_constraintStart_toStartOf="parent"/>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/refreshButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:contentDescription="Refresh"
-                android:src="@android:drawable/ic_popup_sync"
-                app:layout_constraintStart_toStartOf="parent"
-                app:backgroundTint="#38A3A5" android:layout_marginTop="44dp" android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/pageTitle"
-                app:layout_constraintTop_toBottomOf="@+id/appTitle"/>
         <ImageView
                 android:id="@+id/noJourneyImg"
                 android:layout_width="50dp"
@@ -87,6 +67,28 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pageTitle" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:contentDescription="Add"
+            android:src="@android:drawable/ic_input_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:backgroundTint="#38A3A5" app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/refreshButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:contentDescription="Refresh"
+            android:src="@android:drawable/ic_popup_sync"
+            app:layout_constraintStart_toStartOf="parent"
+            app:backgroundTint="#38A3A5"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/pageTitle"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

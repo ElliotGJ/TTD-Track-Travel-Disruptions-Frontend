@@ -5,7 +5,7 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.databinding.library.baseAdapters.BR;
+import com.example.tracktraveldisruptionsapp.BR;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.DayOfWeek;
