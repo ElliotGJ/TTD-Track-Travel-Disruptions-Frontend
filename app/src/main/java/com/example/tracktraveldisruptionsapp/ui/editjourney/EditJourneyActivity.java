@@ -141,6 +141,8 @@ public class EditJourneyActivity extends AppCompatActivity {
             Station selectedStation = adapter.getItem(position);
             if (isFromInput) {
                 binding.fromInput.setText(selectedStation.getStation_name() + " " + selectedStation.getCrs());
+//                binding.fromInput.setText(String.format("  %s (%s)", selectedStation.getStation_name(), selectedStation.getCrs()));
+
                 //journey.setOrigin(selectedStation.getStation_name());
             } else {
                 binding.toInput.setText(selectedStation.getStation_name() + " " + selectedStation.getCrs());

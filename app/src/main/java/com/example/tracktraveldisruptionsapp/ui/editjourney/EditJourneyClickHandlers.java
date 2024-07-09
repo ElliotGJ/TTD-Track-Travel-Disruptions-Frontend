@@ -26,6 +26,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.content.ContentValues.TAG;
 
@@ -52,6 +54,7 @@ public class EditJourneyClickHandlers {
 
     public void onSaveClicked(View view) {
         journey.setDays(selectedDays);
+        journey.setUserId(1L);
 
         String departureCrs = binding.fromInput.getText().toString();
         String destinationCrs = binding.toInput.getText().toString();
@@ -82,12 +85,17 @@ public class EditJourneyClickHandlers {
             return;
         }
 
+        departureCrs = getCRS(departureCrs);
+        destinationCrs = getCRS(destinationCrs);
+
+        System.out.println(departureCrs);
+        System.out.println(destinationCrs);
+
         journey.setOriginCRS(departureCrs);
         journey.setDestinationCRS(destinationCrs);
         journey.setDepartureTime(userSelectedTime);
 
-        List<JourneyLeg> journeyLegs = new ArrayList<>();
-        journey.setJourneyLegs(journeyLegs);
+        System.out.println(journey);
 
         viewModel.updateJourney(journey.getJourneyID(), journey);
         Intent intent = new Intent(context, MainActivity.class);
@@ -152,5 +160,18 @@ public class EditJourneyClickHandlers {
 
     public void setDayButtonColor(Button button, DayOfWeek day) {
         button.setTextColor(selectedDays.contains(day) ? Color.parseColor("#38A3A5") : Color.WHITE);
+    }
+
+    private String getCRS(String input) {
+
+        Matcher matcher = Pattern.compile(".{3}$").matcher(input);
+        if (matcher.find()){
+            return matcher.group();
+        };
+//        if (words.length <= 3) {
+//            return input;
+//        }
+//        return String.join(" ", words[words.length - 3], words[words.length - 2], words[words.length - 1]);
+        return input;
     }
 }
