@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         getAllJourneys();
-        journeyAdapter.notifyDataSetChanged();
+
     }
 
     private void getAllJourneys(){
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 showAddJourneyMessage(false);
             }
 
-            journeyAdapter.updateJourneys(journeys);
+           journeyAdapter.updateJourneys(journeys);
         });
 
     }

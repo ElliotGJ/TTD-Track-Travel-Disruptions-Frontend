@@ -82,7 +82,7 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
                 String destinationName = getStationName(journey.getJourneyDTO().getDestinationCRS());
                 journey.setRailDataDTO(new RailDataDTO(null,journey.getJourneyDTO().getOriginCRS(),departureName,
                         journey.getJourneyDTO().getDestinationCRS(),destinationName,null,null,null,null,
-                        null,null,null,null,null,null,null));
+                        null,null,null,null,null,null,null,null));
                 Log.d("RAILDATASET",journey.getRailDataDTO().toString());
                 journeyView.itemLayoutBinding.setRaildata(journey.getRailDataDTO());
 

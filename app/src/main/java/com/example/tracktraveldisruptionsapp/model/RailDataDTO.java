@@ -46,9 +46,11 @@ public class RailDataDTO extends BaseObservable implements Parcelable {
 
     private Boolean cancelled;
 
+    private String operator;
+
     public RailDataDTO(String generatedAt, String departureStationCrs, String departureStationName, String destinationStationCrs, String destinationStationName,
                        String etd, String std, String platform, String eta, String sta, String cancelReason, String delayReason, String serviceID,
-                       String affectedBy, Boolean filterLocationCancelled, Boolean cancelled) {
+                       String affectedBy, Boolean filterLocationCancelled, Boolean cancelled, String operator) {
         this.generatedAt = generatedAt;
         this.departureStationCrs = departureStationCrs;
         this.departureStationName = departureStationName;
@@ -65,6 +67,7 @@ public class RailDataDTO extends BaseObservable implements Parcelable {
         this.affectedBy = affectedBy;
         this.filterLocationCancelled = filterLocationCancelled;
         this.cancelled = cancelled;
+        this.operator = operator;
     }
 
     public RailDataDTO() {
@@ -89,6 +92,7 @@ public class RailDataDTO extends BaseObservable implements Parcelable {
         filterLocationCancelled = tmpFilterLocationCancelled == 0 ? null : tmpFilterLocationCancelled == 1;
         byte tmpCancelled = in.readByte();
         cancelled = tmpCancelled == 0 ? null : tmpCancelled == 1;
+        operator = in.readString();
     }
 
     public static final Creator<RailDataDTO> CREATOR = new Creator<RailDataDTO>() {
@@ -102,6 +106,16 @@ public class RailDataDTO extends BaseObservable implements Parcelable {
             return new RailDataDTO[size];
         }
     };
+
+    @Bindable
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+        notifyPropertyChanged(BR.operator);
+    }
 
     @Bindable
     public String getGeneratedAt() {
@@ -283,6 +297,7 @@ public class RailDataDTO extends BaseObservable implements Parcelable {
                 ", affectedBy='" + affectedBy + '\'' +
                 ", filterLocationCancelled=" + filterLocationCancelled +
                 ", cancelled=" + cancelled +
+                ", operator" + operator+
                 '}';
     }
 
@@ -309,6 +324,7 @@ public class RailDataDTO extends BaseObservable implements Parcelable {
         dest.writeString(affectedBy);
         dest.writeByte((byte) (filterLocationCancelled == null ? 0 : filterLocationCancelled ? 1 : 2));
         dest.writeByte((byte) (cancelled == null ? 0 : cancelled ? 1 : 2));
+        dest.writeString(operator);
     }
 }
 

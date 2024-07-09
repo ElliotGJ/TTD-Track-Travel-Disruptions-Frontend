@@ -43,12 +43,12 @@ public class DisruptionsAdapter extends RecyclerView.Adapter<DisruptionsAdapter.
         binding = disruptionsViewHolder.disruptionsBinding;
         binding.setRailData(railData);
         imageSetter(binding.statusPic,railData.getEtd(),railData.getStd());
-        textSetter(binding.description,binding.etd,railData.getEtd(),railData.getCancelReason(),railData.getDelayReason());
+        textSetter(binding.description,binding.etd,binding.eta,railData.getEta(),railData.getSta(),railData.getEtd(),railData.getCancelReason(),railData.getDelayReason());
 
 
     }
 
-    private void textSetter(TextView description, TextView etdTV, String etd, String cancelReason, String delayReason) {
+    private void textSetter(TextView description, TextView etdTV, TextView etaTV,String eta,String sta, String etd, String cancelReason, String delayReason) {
         if(etd == null){
             description.setText("Delay information is only avaliable within 2 hours of departure time!");
         }else if(etd.equalsIgnoreCase("On time")){
@@ -61,6 +61,15 @@ public class DisruptionsAdapter extends RecyclerView.Adapter<DisruptionsAdapter.
             etdTV.setTextColor(Color.RED);
             description.setText(delayReason);
         }
+
+        if(eta != null) {
+            if (eta.equalsIgnoreCase("On time")) {
+                etaTV.setTextColor(Color.parseColor("#4bae4f"));
+            } else if (!eta.equals(sta)) {
+                etaTV.setTextColor(Color.RED);
+            }
+        }
+
     }
 
     @Override

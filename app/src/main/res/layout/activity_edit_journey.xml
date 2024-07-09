@@ -341,7 +341,8 @@
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/button_next"
-                android:layout_width="80dp"
+                android:textAlignment="center"
+                android:layout_width="82dp"
                 android:layout_height="50dp"
                 android:layout_margin="10dp"
                 android:padding="0dp"

@@ -18,7 +18,7 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="250dp">
+    android:layout_height="275dp">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -99,9 +99,10 @@
     <TextView
         android:textColor="#5c3d99"
         android:id="@+id/stdLabel"
-        android:layout_width="wrap_content"
+        android:textAlignment="center"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="Scheduled Time:"
+        android:text="Scheduled Time of Departure:"
         android:layout_marginTop="10dp"
         />
         <TextView
@@ -131,9 +132,10 @@
         android:textColor="#5c3d99"
         android:id="@+id/etdLabel"
         android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
+        android:textAlignment="center"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:text="Estimated Time:"
+        android:text="Estimated Time of Departure:"
 
         />
 
@@ -182,6 +184,38 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/etaLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/platformLayout"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp"
+
+        >
+        <TextView
+            android:textColor="#5c3d99"
+            android:id="@+id/etaLabel"
+            android:layout_width="wrap_content"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:text="Estimated Time of Arrival: "
+
+            />
+
+        <TextView
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:id="@+id/eta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="--"
+            android:text="@{railData.eta}"
+            />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/transportLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -207,7 +241,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="--"
-            android:text=""
+            android:text="@{railData.operator}"
             />
     </LinearLayout>
 
@@ -220,9 +254,9 @@
         android:text=""
         android:gravity="center"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statusPic"
+        app:layout_constraintTop_toBottomOf="@id/stdLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/platformLayout"
+        app:layout_constraintBottom_toTopOf="@id/etaLayout"
         />
 
 
