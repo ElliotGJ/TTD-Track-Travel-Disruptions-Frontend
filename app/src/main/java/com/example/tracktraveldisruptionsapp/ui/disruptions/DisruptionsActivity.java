@@ -24,14 +24,14 @@ import com.example.tracktraveldisruptionsapp.ui.main.MainActivityViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class DisruptionsActivity extends AppCompatActivity {
 
     private ActivityDisruptionBinding binding;
     private RecyclerView recyclerView;
-    private RailDataDTO railData;
-    private ArrayList<BackendMap> journeys;
+    private List<RailDataDTO> journeysRailData;
     private DisruptionsAdapter disruptionsAdapter;
     private MainActivityViewModel viewModel;
 
@@ -42,7 +42,10 @@ public class DisruptionsActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_disruption);
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
-        railData =getIntent().getParcelableExtra("journey_raildata");
+        RailDataDTO railData =getIntent().getParcelableExtra("journey_raildata");
+        journeysRailData = new ArrayList<>();
+        journeysRailData.add(railData);
+
 
         Log.i("DisruptionCRS",railData.toString());
 
@@ -51,8 +54,6 @@ public class DisruptionsActivity extends AppCompatActivity {
             Intent intent = new Intent(DisruptionsActivity.this, MainActivity.class);
             startActivity(intent);
         });
-
-
         getDisruptionInfo();
     }
 
@@ -63,7 +64,7 @@ public class DisruptionsActivity extends AppCompatActivity {
 
     private void displayInRecyclerView(){
         recyclerView = binding.recyclerView;
-        disruptionsAdapter = new DisruptionsAdapter(this,railData);
+        disruptionsAdapter = new DisruptionsAdapter(this,journeysRailData);
         recyclerView.setAdapter(disruptionsAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         ItemSpaceDecorator decorator = new ItemSpaceDecorator(40);
