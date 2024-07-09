@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.LayoutInflater;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import androidx.databinding.DataBindingUtil;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton refreshButton = findViewById(R.id.refreshButton);
         refreshButton.setOnClickListener(view -> {
             getAllJourneys();
+            Toast.makeText(this, "Refreshed", Toast.LENGTH_SHORT).show();
         });
         //Refactor the displayInRecyclerView method into here
         recyclerView = binding.recyclerView;

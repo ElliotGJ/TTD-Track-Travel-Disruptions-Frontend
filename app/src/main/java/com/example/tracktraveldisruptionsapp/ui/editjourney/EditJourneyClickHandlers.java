@@ -119,7 +119,7 @@ public class EditJourneyClickHandlers {
     }
 
     public void showTimePickerDialog(Button timeBtn) {
-        LocalTime currentTime = LocalTime.parse(journey.getDepartureTime(), DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime currentTime = LocalTime.parse(journey.getDepartureTime(), DateTimeFormatter.ofPattern("hh:mm"));
         TimePickerDialog timePickerDialog = new TimePickerDialog(context,
                 (TimePicker view, int hourOfDay, int minute) -> {
                     String time = String.format("%02d:%02d", hourOfDay, minute);
