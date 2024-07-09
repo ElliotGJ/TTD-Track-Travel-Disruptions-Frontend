@@ -30,10 +30,12 @@ import java.util.*;
 
 public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyViewHolder>{
 
+
     List<BackendMap> journeys;
     Context context;
     View.OnClickListener editClickListener;
     boolean isRailDataSet = false;
+    private static OnClickListener onClickListener;
 
 
     public JourneyAdapter(List<BackendMap> journeys, Context context,View.OnClickListener editClickListener) {
@@ -41,7 +43,11 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         this.context = context;
         this.editClickListener = editClickListener;
 
+    }
 
+    public JourneyAdapter(List<BackendMap> journeys, Context context) {
+        this.journeys = journeys;
+        this.context = context;
     }
 
     @NonNull
@@ -87,22 +93,16 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
 
             journeyView.itemLayoutBinding.editButton.setTag(journey);
             journeyView.itemLayoutBinding.editButton.setOnClickListener(editClickListener);
+            journeyView.itemView.setOnClickListener(view ->{
+                if (onClickListener != null){
+                    onClickListener.onClick(position, journey.getRailDataDTO());
+                }
+            });
         } else {
             // Handle case where journey is null
             Log.w("JourneyAdapter", "Journey is null at position: " + position);
         }
     }
-
-//    @Override
-//    public void onBindViewHolder(@NonNull @NotNull JourneyViewHolder journeyView, int position) {
-//        BackendMap journey = journeys.get(position);
-//        journeyView.itemLayoutBinding.setJourney(journey.getJourneyDTO());
-//        journeyView.itemLayoutBinding.setRaildata(journey.getRailDataDTO());
-//        frequencyColourSetter(journey.getJourneyDTO().getDays(), journeyView);
-//        imageSetter(journey.getRailDataDTO().getStd(), journey.getRailDataDTO().getEtd(), journeyView);
-//        journeyView.itemLayoutBinding.editButton.setTag(journey);
-//        journeyView.itemLayoutBinding.editButton.setOnClickListener(editClickListener);
-//    }
 
     @Override
     public int getItemCount() {
@@ -112,6 +112,10 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         return journeys.size();
     }
 
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
     public static class JourneyViewHolder extends RecyclerView.ViewHolder {
 
         private ItemLayoutMainBinding itemLayoutBinding;
@@ -119,6 +123,12 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         public JourneyViewHolder(ItemLayoutMainBinding itemLayoutBinding) {
             super(itemLayoutBinding.getRoot());
             this.itemLayoutBinding = itemLayoutBinding;
+
+            itemView.setOnClickListener(view -> {
+                if (onClickListener != null) {
+                    onClickListener.onClick(getAdapterPosition(), itemLayoutBinding.getRaildata());
+                }
+            });
         }
 
     }
@@ -184,7 +194,7 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         }
         Station[] stations = new Gson().fromJson(br, Station[].class);
 
-        Station station =Arrays.stream(stations).filter(s-> s.getCrs().equals(crs)).findAny().get();
+        Station station = Arrays.stream(stations).filter(s-> s.getCrs().equals(crs)).findAny().get();
         return station.getStation_name();
     }
 

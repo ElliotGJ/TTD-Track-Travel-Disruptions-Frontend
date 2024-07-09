@@ -70,7 +70,7 @@
                         android:padding="8dp">
 
                     <ImageView
-                            android:layout_width="70dp"
+                            android:layout_width="40dp"
                             android:layout_height="80dp"
                             android:src="@drawable/journeyline"
                             android:layout_gravity="center_vertical"/>
@@ -101,7 +101,7 @@
                                 app:layout_constraintTop_toTopOf="@id/from_label"
                                 app:layout_constraintStart_toEndOf="@id/from_label"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintBottom_toBottomOf="@id/from_label"
+
                                 android:background="@drawable/borderbox"
 
                             />

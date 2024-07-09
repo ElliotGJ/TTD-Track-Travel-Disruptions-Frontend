@@ -17,6 +17,7 @@ public class JourneyRepository {
     private MutableLiveData<List<BackendMap>> mutableLiveData = new MutableLiveData<>();
     private Application application;
 
+
     public JourneyRepository(Application application) {
         this.application = application;
     }

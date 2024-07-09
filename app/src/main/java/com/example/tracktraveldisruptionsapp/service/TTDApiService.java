@@ -16,7 +16,7 @@ public interface TTDApiService {
     Call<Journey> postJourneys(@Body Journey journey);
 
     @PUT("journey/{id}")
-    Call<Journey> updateJourney(@Path("id") Long Id,  @Body Journey journey);
+    Call<Journey> updateJourney(@Path("id") Long Id, @Body Journey journey);
     @PUT("journey/validate")
     Call<Void> validateJourney(@Body Journey journey);
 

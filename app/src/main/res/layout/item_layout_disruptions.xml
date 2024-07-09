@@ -37,13 +37,14 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/tick"
-        android:layout_margin="10dp"
+        android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/CrsLabel"
 
         />
 
     <TextView
+        android:textColor="#5c3d99"
         android:textSize="18sp"
         android:id="@+id/CrsLabel"
         android:layout_width="wrap_content"
@@ -53,6 +54,7 @@
         android:text="Train: "
         />
     <TextView
+        android:textColor="#5c3d99"
         android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:id="@+id/arrow"
@@ -83,27 +85,145 @@
         tools:hint="LEI"
         android:text="@{railData.destinationStationCrs}"
         />
+
+    <LinearLayout
+        android:id="@id/stdLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/CrsLabel"
+        app:layout_constraintStart_toEndOf="@+id/statusPic"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
     <TextView
+        android:textColor="#5c3d99"
         android:id="@+id/stdLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Scheduled Time:"
-        app:layout_constraintTop_toBottomOf="@+id/CrsLabel"
-        app:layout_constraintStart_toStartOf="@+id/CrsLabel"
         android:layout_marginTop="10dp"
         />
+        <TextView
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:id="@+id/std"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="--"
+            android:text="@{railData.std}"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="@id/etdLabel"
+            app:layout_constraintTop_toBottomOf="@id/etdLabel"
+            />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/stdLayout"
+        android:layout_marginEnd="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
     <TextView
+        android:textColor="#5c3d99"
         android:id="@+id/etdLabel"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Estimated Time:"
-        app:layout_constraintStart_toEndOf="@+id/stdLabel"
-        app:layout_constraintTop_toTopOf="@id/stdLabel"
-        android:layout_marginStart="50dp"
+
         />
 
+    <TextView
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:id="@+id/etd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="--"
+        android:text="@{railData.etd}"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="@id/etdLabel"
+        app:layout_constraintTop_toBottomOf="@id/etdLabel"
 
+        />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/platformLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/transportLayout"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp"
+
+        >
+        <TextView
+            android:textColor="#5c3d99"
+            android:id="@+id/platformLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Platform: "
+
+            />
+
+        <TextView
+            android:id="@+id/platform"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="--"
+            android:text="@{railData.platform}"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/transportLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+
+        >
+        <TextView
+            android:textColor="#5c3d99"
+            android:id="@+id/transportLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Service Provider: "
+
+            />
+
+        <TextView
+            android:id="@+id/transport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="--"
+            android:text=""
+            />
+    </LinearLayout>
+
+    <TextView
+        android:textSize="18sp"
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:hint="No service disruption reported on your journey"
+        android:text=""
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statusPic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/platformLayout"
+        />
 
 
 

@@ -28,6 +28,8 @@
                 android:exported="true" />
         <activity android:name=".ui.editjourney.EditJourneyActivity"
                                         />
+        <activity android:name=".ui.disruptions.DisruptionsActivity"
+            />
 
     </application>
 
