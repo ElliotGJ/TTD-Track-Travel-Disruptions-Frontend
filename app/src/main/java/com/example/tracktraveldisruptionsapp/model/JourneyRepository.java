@@ -111,12 +111,4 @@ public class JourneyRepository {
             }
         });
     }
-
-//    public void validateJourney(Journey journey, Callback<Void> callback){
-//        TTDApiService service = RetrofitInstance.getService();
-//        Call<Void> call = service.validateJourney(journey);
-//        call.enqueue(callback);
-//    }
-
-
 }

@@ -23,7 +23,4 @@ public interface TTDApiService {
     @DELETE("journey/{id}")
     Call<Void> deleteJourney(@Path("id") Long id);
 
-//    @POST("journey/validate")
-//    Call<Void> validateJourney(@Body Journey journey);
-
 }
