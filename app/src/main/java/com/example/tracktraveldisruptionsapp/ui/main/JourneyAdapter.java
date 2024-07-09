@@ -93,6 +93,7 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
 
             journeyView.itemLayoutBinding.editButton.setTag(journey);
             journeyView.itemLayoutBinding.editButton.setOnClickListener(editClickListener);
+
             journeyView.itemView.setOnClickListener(view ->{
                 if (onClickListener != null){
                     onClickListener.onClick(position, journey.getRailDataDTO());

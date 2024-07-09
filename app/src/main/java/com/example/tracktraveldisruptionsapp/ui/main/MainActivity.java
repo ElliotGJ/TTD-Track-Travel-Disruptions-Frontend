@@ -70,7 +70,16 @@ public class MainActivity extends AppCompatActivity {
 
         //Prevent repeat added space between items
         recyclerView.setAdapter(journeyAdapter);
+        journeyAdapter.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(int position, RailDataDTO railData) {
+                Intent intent = new Intent(MainActivity.this,DisruptionsActivity.class);
+                intent.putExtra(KEY, railData);
+                startActivity(intent);
+            }
+        });
         getAllJourneys();
+        journeyAdapter.notifyDataSetChanged();
     }
 
     private void getAllJourneys(){
