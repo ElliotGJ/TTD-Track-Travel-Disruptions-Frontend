@@ -97,37 +97,40 @@ public class AddJourneyClickHandlers {
         String json = gson.toJson(newJourney);
         Log.d(TAG, "Journey JSON: " + json);
 
-        validateJourneyAndSubmit(newJourney);
+        viewModel.addJourney(newJourney);
+        context.startActivity(new Intent(context, MainActivity.class));
+
+//        validateJourneyAndSubmit(newJourney);
     }
 
-    private void validateJourneyAndSubmit(Journey journey){
-        viewModel.validateJourney(journey, new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()){
-                    addJourney(journey);
-                } else {
-                    Toast.makeText(context, "No route found for the selected stations. Please try different stations.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(context, "Failed to validate journey. Please try again later", Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "Failed to validate journey", t);
-            }
-        });
-    }
-
-    private void addJourney(Journey journey){
-        try{
-            viewModel.addJourney(journey);
-            context.startActivity(new Intent(context, MainActivity.class));
-        } catch (Exception e){
-            Log.e(TAG, "Failed to add journey", e);
-            Toast.makeText(context, "Failed to add journey. Please check if the stations have service and try again", Toast.LENGTH_SHORT).show();
-        }
-    }
+//    private void validateJourneyAndSubmit(Journey journey){
+//        viewModel.validateJourney(journey, new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.isSuccessful()){
+//                    addJourney(journey);
+//                } else {
+//                    Toast.makeText(context, "No route found for the selected stations. Please try different stations.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Toast.makeText(context, "Failed to validate journey. Please try again later", Toast.LENGTH_SHORT).show();
+//                Log.e(TAG, "Failed to validate journey", t);
+//            }
+//        });
+//    }
+//
+//    private void addJourney(Journey journey){
+//        try{
+//            viewModel.addJourney(journey);
+//            context.startActivity(new Intent(context, MainActivity.class));
+//        } catch (Exception e){
+//            Log.e(TAG, "Failed to add journey", e);
+//            Toast.makeText(context, "Failed to add journey. Please check if the stations have service and try again", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     public Set<DayOfWeek> getSelectedDays() {
         Set<DayOfWeek> frequency = new HashSet<>();

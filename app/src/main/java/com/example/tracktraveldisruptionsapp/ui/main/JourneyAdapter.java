@@ -50,15 +50,43 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
     @Override
     public void onBindViewHolder(@NonNull @NotNull JourneyViewHolder journeyView, int position) {
         BackendMap journey = journeys.get(position);
-        journeyView.itemLayoutBinding.setJourney(journey.getJourneyDTO());
-        journeyView.itemLayoutBinding.setRaildata(journey.getRailDataDTO());
-        frequencyColourSetter(journey.getJourneyDTO().getDays(),journeyView);
-        imageSetter(journey.getRailDataDTO().getStd(),journey.getRailDataDTO().getEtd(),journeyView);
-        journeyView.itemLayoutBinding.editButton.setTag(journey);
-        journeyView.itemLayoutBinding.editButton.setOnClickListener(editClickListener);
+        if (journey != null) {
+            journeyView.itemLayoutBinding.setJourney(journey.getJourneyDTO());
 
+            if (journey.getRailDataDTO() != null) {
+                journeyView.itemLayoutBinding.setRaildata(journey.getRailDataDTO());
+                frequencyColourSetter(journey.getJourneyDTO().getDays(), journeyView);
 
+                String std = journey.getRailDataDTO().getStd();
+                String etd = journey.getRailDataDTO().getEtd();
+
+                imageSetter(std, etd, journeyView);
+            } else {
+                // Handle case where RailDataDTO is null
+                journeyView.itemLayoutBinding.setRaildata(null);
+                // Set default or empty values for views that depend on RailDataDTO
+                journeyView.itemLayoutBinding.journeyLineImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pendinginfo));
+                journeyView.itemLayoutBinding.serviceInfo.setText("No Rail Data Available");
+            }
+
+            journeyView.itemLayoutBinding.editButton.setTag(journey);
+            journeyView.itemLayoutBinding.editButton.setOnClickListener(editClickListener);
+        } else {
+            // Handle case where journey is null
+            Log.w("JourneyAdapter", "Journey is null at position: " + position);
+        }
     }
+
+//    @Override
+//    public void onBindViewHolder(@NonNull @NotNull JourneyViewHolder journeyView, int position) {
+//        BackendMap journey = journeys.get(position);
+//        journeyView.itemLayoutBinding.setJourney(journey.getJourneyDTO());
+//        journeyView.itemLayoutBinding.setRaildata(journey.getRailDataDTO());
+//        frequencyColourSetter(journey.getJourneyDTO().getDays(), journeyView);
+//        imageSetter(journey.getRailDataDTO().getStd(), journey.getRailDataDTO().getEtd(), journeyView);
+//        journeyView.itemLayoutBinding.editButton.setTag(journey);
+//        journeyView.itemLayoutBinding.editButton.setOnClickListener(editClickListener);
+//    }
 
     @Override
     public int getItemCount() {

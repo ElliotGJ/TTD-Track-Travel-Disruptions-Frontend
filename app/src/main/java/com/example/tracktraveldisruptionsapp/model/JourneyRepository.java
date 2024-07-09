@@ -54,15 +54,15 @@ public class JourneyRepository {
                 if (response.isSuccessful() && response.body() != null) {
                     Toast.makeText(application.getApplicationContext(), "Journey added successfully.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(application.getApplicationContext(), "Failed to add new journey! " + response.message(), Toast.LENGTH_SHORT).show();
-                    Log.e("postJourney", "Failed to add new journey: " + response.message());
+                    Toast.makeText(application.getApplicationContext(), "Failed to add journey, Journey not valid " + response.message(), Toast.LENGTH_SHORT).show();
+                    Log.e("postJourney1", "Failed to add new journey: " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Journey> call, Throwable throwable) {
                 Toast.makeText(application.getApplicationContext(), "Failed to add new journey!", Toast.LENGTH_SHORT).show();
-                Log.e("postJourney", "onFailure: " + throwable.getLocalizedMessage());
+                Log.e("postJourney2", "onFailure: " + throwable.getLocalizedMessage());
             }
         });
     }
@@ -112,11 +112,11 @@ public class JourneyRepository {
         });
     }
 
-    public void validateJourney(Journey journey, Callback<Void> callback){
-        TTDApiService service = RetrofitInstance.getService();
-        Call<Void> call = service.validateJourney(journey);
-        call.enqueue(callback);
-    }
+//    public void validateJourney(Journey journey, Callback<Void> callback){
+//        TTDApiService service = RetrofitInstance.getService();
+//        Call<Void> call = service.validateJourney(journey);
+//        call.enqueue(callback);
+//    }
 
 
 }

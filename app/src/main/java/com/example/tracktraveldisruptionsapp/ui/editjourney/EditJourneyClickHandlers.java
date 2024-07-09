@@ -81,31 +81,33 @@ public class EditJourneyClickHandlers {
 
         journey.setOriginCRS(departureCrs);
         journey.setDestinationCRS(destinationCrs);
+        viewModel.addJourney(journey);
 
-        validateJourneyAndSubmit(journey);
+//        validateJourneyAndSubmit(journey);
+
     }
 
-    private void validateJourneyAndSubmit(@NonNull Journey journey) {
-        viewModel.validateJourney(journey, new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    // If the journey is valid, add the journey
-                    viewModel.addJourney(journey);
-                } else {
-                    // If no route is found
-                    Toast.makeText(context, "No route found for the selected stations. Please try different stations.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                // If validation fails
-                Toast.makeText(context, "Failed to validate journey. Please try again later", Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "Failed to validate journey", t);
-            }
-        });
-    }
+//    private void validateJourneyAndSubmit(@NonNull Journey journey) {
+//        viewModel.validateJourney(journey, new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.isSuccessful()) {
+//                    // If the journey is valid, add the journey
+//                    viewModel.addJourney(journey);
+//                } else {
+//                    // If no route is found
+//                    Toast.makeText(context, "No route found for the selected stations. Please try different stations.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                // If validation fails
+//                Toast.makeText(context, "Failed to validate journey. Please try again later", Toast.LENGTH_SHORT).show();
+//                Log.e(TAG, "Failed to validate journey", t);
+//            }
+//        });
+//    }
 
 
 

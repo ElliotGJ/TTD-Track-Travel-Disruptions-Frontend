@@ -35,11 +35,11 @@ public class MainActivityViewModel extends AndroidViewModel {
     public void deleteJourney( long id) {
         journeyRepository.deleteJourney(id);
     }
-    public void validateJourney(Journey journey, Callback<Void> callback){
-        journeyRepository.validateJourney(journey, callback);
-    }
-
-    public void validateJourney(Journey journey, Callback<Void> callback){
-        journeyRepository.validateJourney(journey, callback);
-    }
+//    public void validateJourney(Journey journey, Callback<Void> callback){
+//        journeyRepository.validateJourney(journey, callback);
+//    }
+//
+//    public void validateAddNewJourney(Journey journey, Callback<Void> callback){
+//        journeyRepository.validateJourney(journey, callback);
+//    }
 }
