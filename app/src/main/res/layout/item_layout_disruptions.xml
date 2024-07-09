@@ -44,6 +44,7 @@
         />
 
     <TextView
+        android:textColor="#5c3d99"
         android:textSize="18sp"
         android:id="@+id/CrsLabel"
         android:layout_width="wrap_content"
@@ -53,6 +54,7 @@
         android:text="Train: "
         />
     <TextView
+        android:textColor="#5c3d99"
         android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:id="@+id/arrow"
@@ -95,6 +97,7 @@
         android:orientation="vertical"
         >
     <TextView
+        android:textColor="#5c3d99"
         android:id="@+id/stdLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -107,7 +110,7 @@
             android:id="@+id/std"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:hint="00:00"
+            android:hint="--"
             android:text="@{railData.std}"
             android:gravity="center"
             app:layout_constraintStart_toStartOf="@id/etdLabel"
@@ -125,6 +128,7 @@
         android:orientation="vertical"
         >
     <TextView
+        android:textColor="#5c3d99"
         android:id="@+id/etdLabel"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
@@ -139,7 +143,7 @@
         android:id="@+id/etd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:hint="On Time"
+        android:hint="--"
         android:text="@{railData.etd}"
         android:gravity="center"
         app:layout_constraintStart_toStartOf="@id/etdLabel"
@@ -148,7 +152,78 @@
         />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/platformLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/transportLayout"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="5dp"
 
+        >
+        <TextView
+            android:textColor="#5c3d99"
+            android:id="@+id/platformLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Platform: "
+
+            />
+
+        <TextView
+            android:id="@+id/platform"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="--"
+            android:text="@{railData.platform}"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/transportLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+
+        >
+        <TextView
+            android:textColor="#5c3d99"
+            android:id="@+id/transportLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Service Provider: "
+
+            />
+
+        <TextView
+            android:id="@+id/transport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="--"
+            android:text=""
+            />
+    </LinearLayout>
+
+    <TextView
+        android:textSize="18sp"
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:hint="No service disruption reported on your journey"
+        android:text=""
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statusPic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/platformLayout"
+        />
 
 
 

@@ -16,6 +16,7 @@ public class JourneyRepository {
 
     private MutableLiveData<List<BackendMap>> mutableLiveData = new MutableLiveData<>();
     private Application application;
+    private BackendMap journeyFromID;
 
     public JourneyRepository(Application application) {
         this.application = application;
@@ -29,7 +30,7 @@ public class JourneyRepository {
             public void onResponse(Call<List<BackendMap>> call, Response<List<BackendMap>> response) {
                 List<BackendMap> journeys = response.body();
                 Log.i("JOURNEYLISTLOG",""+response.code());
-                Log.i("JOURNEYLISTLOG", journeys.toString());
+//                Log.i("JOURNEYLISTLOG", journeys.toString());
                 Log.i("JOURNEYLISTLOG","ON SUCCESS");
 
 
@@ -44,6 +45,26 @@ public class JourneyRepository {
         });
         return mutableLiveData;
     }
+
+//    public BackendMap getJourneyByID(Long id){
+//        TTDApiService service = RetrofitInstance.getService();
+//        Call<BackendMap> call = service.getJourneyByID(id);
+//        call.enqueue(new Callback<BackendMap>() {
+//            @Override
+//            public void onResponse(Call<BackendMap> call, Response<BackendMap> response) {
+//                journeyFromID = response.body();
+//                Log.i("JOURNEYBYIDLOG",""+response.code());
+//                Log.i("JOURNEYBYIDLOG","ON SUCCESS");
+//            }
+//
+//            @Override
+//            public void onFailure(Call<BackendMap> call, Throwable throwable) {
+//                Log.i("JOURNEYBYIDLOG","FAILURE");
+//                Log.i("JOURNEYBYIDLOG",throwable.getLocalizedMessage());
+//            }
+//        });
+//        return journeyFromID;
+//    }
 
     public void postJourneys(Journey journey) {
         TTDApiService service = RetrofitInstance.getService();

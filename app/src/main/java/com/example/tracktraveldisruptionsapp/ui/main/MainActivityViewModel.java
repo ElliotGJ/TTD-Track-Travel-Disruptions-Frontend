@@ -30,4 +30,9 @@ public class MainActivityViewModel extends AndroidViewModel {
     public void updateJourney(Journey journey) {
         journeyRepository.updateJourney(journey);
     }
+
+//    public BackendMap getDisruptionInfo(Long id){
+//        return journeyRepository.getJourneyByID(id);
+//    }
+
 }

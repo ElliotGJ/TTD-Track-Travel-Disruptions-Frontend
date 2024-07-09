@@ -24,9 +24,11 @@ import java.util.Set;
 
 public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyViewHolder>{
 
+
     List<BackendMap> journeys;
     Context context;
     View.OnClickListener editClickListener;
+    private static OnClickListener onClickListener;
 
 
     public JourneyAdapter(List<BackendMap> journeys, Context context,View.OnClickListener editClickListener) {
@@ -34,7 +36,11 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         this.context = context;
         this.editClickListener = editClickListener;
 
+    }
 
+    public JourneyAdapter(List<BackendMap> journeys, Context context) {
+        this.journeys = journeys;
+        this.context = context;
     }
 
     @NonNull
@@ -56,6 +62,11 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         journeyView.itemLayoutBinding.editButton.setTag(journey);
         journeyView.itemLayoutBinding.editButton.setOnClickListener(editClickListener);
 
+       journeyView.itemView.setOnClickListener(view ->{
+           if (onClickListener != null){
+               onClickListener.onClick(position, journey.getRailDataDTO());
+           }
+       });
 
     }
 
@@ -67,6 +78,10 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         return journeys.size();
     }
 
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
     public static class JourneyViewHolder extends RecyclerView.ViewHolder {
 
         private ItemLayoutMainBinding itemLayoutBinding;
@@ -74,6 +89,12 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         public JourneyViewHolder(ItemLayoutMainBinding itemLayoutBinding) {
             super(itemLayoutBinding.getRoot());
             this.itemLayoutBinding = itemLayoutBinding;
+
+            itemView.setOnClickListener(view -> {
+                if (onClickListener != null) {
+                    onClickListener.onClick(getAdapterPosition(), itemLayoutBinding.getRaildata());
+                }
+            });
         }
 
     }
@@ -103,23 +124,21 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
 
     }
 
-    private void imageSetter(String std, String etd,JourneyViewHolder journeyView){
+    private void imageSetter(String std, String etd,JourneyViewHolder journeyView) {
         ImageView journeyIcon = journeyView.itemLayoutBinding.journeyLineImg;
         TextView textView = journeyView.itemLayoutBinding.serviceInfo;
-        if (etd.equalsIgnoreCase("On time")){
-            journeyIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.journeyok));
-            textView.setText("Service On Time");
-
-        }else if(!etd.equalsIgnoreCase(std)){
-            journeyIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.journeydisrupt_two));
-            textView.setText("1 Delay!");
-        }else if(etd.equalsIgnoreCase("Cancelled")){
-            journeyIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.journeydisrupt_two));
-            textView.setText("Service Cancelled!");
-        }else if(etd == null){
+        if (etd == null) {
             journeyIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pendinginfo));
             textView.setText("Service Info will be avaliable within 2 hours of departure time.");
+        }else if (etd.equalsIgnoreCase("On time")) {
+            journeyIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.journeyok));
+            textView.setText("Service On Time");
+        } else if (!etd.equalsIgnoreCase(std)) {
+            journeyIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.journeydisrupt_two));
+            textView.setText("1 Delay!");
+        } else if (etd.equalsIgnoreCase("Cancelled")) {
+            journeyIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.journeydisrupt_two));
+            textView.setText("Service Cancelled!");
         }
     }
-
 }

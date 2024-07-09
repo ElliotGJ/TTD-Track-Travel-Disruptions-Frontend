@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.tracktraveldisruptionsapp.databinding.ActivityMainBinding;
 import com.example.tracktraveldisruptionsapp.model.BackendMap;
 import com.example.tracktraveldisruptionsapp.model.Journey;
+import com.example.tracktraveldisruptionsapp.model.RailDataDTO;
 import com.example.tracktraveldisruptionsapp.resources.ItemSpaceDecorator;
 import com.example.tracktraveldisruptionsapp.ui.addjourney.NewJourneyActivity;
 import com.example.tracktraveldisruptionsapp.R;
+import com.example.tracktraveldisruptionsapp.ui.disruptions.DisruptionsActivity;
 import com.example.tracktraveldisruptionsapp.ui.editjourney.EditJourneyActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private JourneyAdapter journeyAdapter;
     private MainActivityViewModel viewModel;
     private ActivityMainBinding binding;
+    public static final String KEY = "journey_raildata";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getAllJourneys(){
         viewModel.getRepositoryLiveData().observe(this, journeyList -> {
+
             journeys = (ArrayList<BackendMap>) journeyList;
             if (journeys == null || journeys.isEmpty()){
                 showAddJourneyMessage(true);
@@ -70,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         recyclerView.setAdapter(journeyAdapter);
+        journeyAdapter.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(int position, RailDataDTO railData) {
+                Intent intent = new Intent(MainActivity.this,DisruptionsActivity.class);
+                intent.putExtra(KEY, railData);
+                startActivity(intent);
+            }
+        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         ItemSpaceDecorator decorator = new ItemSpaceDecorator(40);
         recyclerView.addItemDecoration(decorator);

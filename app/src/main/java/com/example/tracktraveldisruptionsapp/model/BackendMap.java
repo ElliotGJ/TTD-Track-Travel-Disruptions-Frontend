@@ -17,7 +17,6 @@ public class BackendMap {
     }
 
     public BackendMap() {
-
     }
 
     public Journey getJourneyDTO() {
