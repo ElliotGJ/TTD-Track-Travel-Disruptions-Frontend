@@ -18,6 +18,7 @@ import com.example.tracktraveldisruptionsapp.model.Journey;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.DayOfWeek;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -120,6 +121,12 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
             journeyIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pendinginfo));
             textView.setText("Service Info will be avaliable within 2 hours of departure time.");
         }
+    }
+
+    public void updateJourneys(ArrayList<BackendMap> newJourneys) {
+        this.journeys.clear();
+        this.journeys.addAll(newJourneys);
+        notifyDataSetChanged();
     }
 
 }
