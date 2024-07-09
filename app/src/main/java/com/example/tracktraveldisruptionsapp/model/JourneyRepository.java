@@ -28,10 +28,8 @@ public class JourneyRepository {
             @Override
             public void onResponse(Call<List<BackendMap>> call, Response<List<BackendMap>> response) {
                 List<BackendMap> journeys = response.body();
-                Log.i("JOURNEYLISTLOG",""+response.code());
+                Log.i("JOURNEYLISTLOG","ON SUCCESS: "+response.code());
                 Log.i("JOURNEYLISTLOG", String.valueOf(journeys));
-                Log.i("JOURNEYLISTLOG","ON SUCCESS");
-
 
                 mutableLiveData.setValue(journeys);
             }
@@ -67,9 +65,9 @@ public class JourneyRepository {
         });
     }
 
-    public void updateJourney(Journey journey) {
+    public void updateJourney(Long id, Journey journey) {
         TTDApiService service = RetrofitInstance.getService();
-        Call<Journey> call = service.updateJourney(journey);
+        Call<Journey> call = service.updateJourney(id,journey);
         call.enqueue(new Callback<Journey>() {
             @Override
             public void onResponse(Call<Journey> call, Response<Journey> response) {
@@ -89,9 +87,9 @@ public class JourneyRepository {
         });
     }
 
-    public void deleteJourney(Journey journey) {
+    public void deleteJourney(long id) {
         TTDApiService service = RetrofitInstance.getService();
-        Call<Void> call = service.deleteJourney(journey.getJourneyID());
+        Call<Void> call = service.deleteJourney(id);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
@@ -110,6 +108,12 @@ public class JourneyRepository {
             }
         });
     }
+    public void validateJourney(Journey journey, Callback<Void> callback){
+        TTDApiService service = RetrofitInstance.getService();
+        Call<Void> call = service.validateJourney(journey);
+        call.enqueue(callback);
+    }
+
 
 
 }

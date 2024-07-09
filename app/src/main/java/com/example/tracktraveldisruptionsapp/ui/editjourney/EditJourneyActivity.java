@@ -4,9 +4,11 @@ import android.app.Dialog;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,22 +45,26 @@ public class EditJourneyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_journey);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_journey);
 
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
-        journey = getIntent().getParcelableExtra("journey");
-        if (journey == null) {
-            //journey = new Journey(false, "", "", new HashSet<>(), "", new HashSet<>());
-        } else {
+        journey = getIntent().getParcelableExtra("JOURNEY_OBJECT");
+
+        System.out.println("GET "+ journey);
+        System.out.println(journey.getJourneyID());
+        Log.e("Edit Journey Activity", "Journey days: " + journey.getDays());
+
+
+        if (journey != null) {
             binding.setJourney(journey);
             binding.fromInput.setText(journey.getOriginCRS());
             binding.toInput.setText(journey.getDestinationCRS());
-            selectedDays.addAll(journey.getDays());
             binding.departureTimeInput.setText(journey.getDepartureTime());
+            selectedDays.addAll(journey.getDays());
 
         }
-
 
         clickHandlers = new EditJourneyClickHandlers(this, journey, selectedDays, viewModel, binding);
 
@@ -91,9 +97,8 @@ public class EditJourneyActivity extends AppCompatActivity {
             showDialog();
         });
 
-        binding.setJourney(journey);
-
         clickHandlers.updateDayButtonColors();
+
     }
 
     private void showDialog() {

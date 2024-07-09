@@ -20,6 +20,7 @@ import com.example.tracktraveldisruptionsapp.R;
 import com.example.tracktraveldisruptionsapp.ui.editjourney.EditJourneyActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private void getAllJourneys(){
         viewModel.getRepositoryLiveData().observe(this, journeyList -> {
             journeys = (ArrayList<BackendMap>) journeyList;
+//            System.out.println("journeys =" + journeys);
             if (journeys == null || journeys.isEmpty()){
                 showAddJourneyMessage(true);
             }else {
@@ -59,13 +61,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     private void displayInRecyclerView(){
         recyclerView = binding.recyclerView;
         journeyAdapter = new JourneyAdapter(journeys,this,view->{
             BackendMap backendMap = (BackendMap) view.getTag();
             Journey journey = backendMap.getJourneyDTO();
             Intent intent = new Intent(MainActivity.this, EditJourneyActivity.class);
-            intent.putExtra("journey", journey);
+            System.out.println("JourneysObj "+ journey);
+            intent.putExtra("JOURNEY_OBJECT", journey);
+//            intent.putExtra("journeyID", journey.getJourneyID());
+
             startActivity(intent);
         });
 
