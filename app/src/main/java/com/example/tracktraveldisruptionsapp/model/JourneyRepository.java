@@ -28,8 +28,10 @@ public class JourneyRepository {
             @Override
             public void onResponse(Call<List<BackendMap>> call, Response<List<BackendMap>> response) {
                 List<BackendMap> journeys = response.body();
+              
                 Log.i("JOURNEYLISTLOG","ON SUCCESS: "+response.code());
                 Log.i("JOURNEYLISTLOG", String.valueOf(journeys));
+
 
                 mutableLiveData.setValue(journeys);
             }
@@ -87,6 +89,7 @@ public class JourneyRepository {
         });
     }
 
+
     public void deleteJourney(long id) {
         TTDApiService service = RetrofitInstance.getService();
         Call<Void> call = service.deleteJourney(id);
@@ -108,12 +111,12 @@ public class JourneyRepository {
             }
         });
     }
+
     public void validateJourney(Journey journey, Callback<Void> callback){
         TTDApiService service = RetrofitInstance.getService();
         Call<Void> call = service.validateJourney(journey);
         call.enqueue(callback);
     }
-
 
 
 }

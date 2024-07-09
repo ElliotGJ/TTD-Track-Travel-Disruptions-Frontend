@@ -43,6 +43,31 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, NewJourneyActivity.class);
             startActivity(intent);
         });
+
+        FloatingActionButton refreshButton = findViewById(R.id.refreshButton);
+        refreshButton.setOnClickListener(view -> {
+            getAllJourneys();
+        });
+        //Refactor the displayInRecyclerView method into here
+        recyclerView = binding.recyclerView;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+
+        ItemSpaceDecorator decorator = new ItemSpaceDecorator(40);
+        recyclerView.addItemDecoration(decorator);
+
+        journeyAdapter = new JourneyAdapter(new ArrayList<>(), this, view -> {
+            BackendMap backendMap = (BackendMap) view.getTag();
+            Journey journey = backendMap.getJourneyDTO();
+            Intent intent = new Intent(MainActivity.this, EditJourneyActivity.class);
+            intent.putExtra("journey", journey);
+            startActivity(intent);
+        });
+
+        //Prevent repeat added space between items
+        recyclerView.setAdapter(journeyAdapter);
+
         getAllJourneys();
     }
 
@@ -56,11 +81,10 @@ public class MainActivity extends AppCompatActivity {
                 showAddJourneyMessage(false);
             }
 
-            displayInRecyclerView();
+            journeyAdapter.updateJourneys(journeys);
         });
 
     }
-
 
 
     private void displayInRecyclerView(){
@@ -85,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
         journeyAdapter.notifyDataSetChanged();
 
     }
+
 
     private void showAddJourneyMessage(boolean visible){
         if(visible) {
