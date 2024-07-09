@@ -129,7 +129,7 @@ public class AddJourneyClickHandlers {
         }
     }
 
-    private Set<DayOfWeek> getSelectedDays() {
+    public Set<DayOfWeek> getSelectedDays() {
         Set<DayOfWeek> frequency = new HashSet<>();
         if (buttonStatesMap.get("Mon")) frequency.add(DayOfWeek.MONDAY);
         if (buttonStatesMap.get("Tue")) frequency.add(DayOfWeek.TUESDAY);

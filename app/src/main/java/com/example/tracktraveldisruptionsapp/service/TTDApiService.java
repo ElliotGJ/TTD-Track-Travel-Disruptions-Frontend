@@ -2,12 +2,8 @@ package com.example.tracktraveldisruptionsapp.service;
 
 import com.example.tracktraveldisruptionsapp.model.BackendMap;
 import com.example.tracktraveldisruptionsapp.model.Journey;
-import com.example.tracktraveldisruptionsapp.model.Station;
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.PUT;
+import retrofit2.http.*;
 
 import java.util.List;
 
@@ -20,8 +16,14 @@ public interface TTDApiService {
     Call<Journey> postJourneys(@Body Journey journey);
 
     @PUT("journey/{id}")
-    Call<Journey> updateJourney(Journey journey);
+    Call<Journey> updateJourney(@Path("id") Long Id,  @Body Journey journey);
+    @PUT("journey/validate")
+    Call<Void> validateJourney(@Body Journey journey);
 
+    @DELETE("journey/{id}")
+    Call<Void> deleteJourney(@Path("id") Long id);
+   
     @POST("journey/validate")
     Call<Void> validateJourney(@Body Journey journey);
+
 }

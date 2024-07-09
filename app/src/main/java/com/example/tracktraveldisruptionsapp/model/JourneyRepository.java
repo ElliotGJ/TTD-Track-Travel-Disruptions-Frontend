@@ -28,9 +28,9 @@ public class JourneyRepository {
             @Override
             public void onResponse(Call<List<BackendMap>> call, Response<List<BackendMap>> response) {
                 List<BackendMap> journeys = response.body();
-                Log.i("JOURNEYLISTLOG",""+response.code());
-//                Log.i("JOURNEYLISTLOG", journeys.toString());
-                Log.i("JOURNEYLISTLOG","ON SUCCESS");
+              
+                Log.i("JOURNEYLISTLOG","ON SUCCESS: "+response.code());
+                Log.i("JOURNEYLISTLOG", String.valueOf(journeys));
 
 
                 mutableLiveData.setValue(journeys);
@@ -67,9 +67,9 @@ public class JourneyRepository {
         });
     }
 
-    public void updateJourney(Journey journey) {
+    public void updateJourney(Long id, Journey journey) {
         TTDApiService service = RetrofitInstance.getService();
-        Call<Journey> call = service.updateJourney(journey);
+        Call<Journey> call = service.updateJourney(id,journey);
         call.enqueue(new Callback<Journey>() {
             @Override
             public void onResponse(Call<Journey> call, Response<Journey> response) {
@@ -89,10 +89,34 @@ public class JourneyRepository {
         });
     }
 
+
+    public void deleteJourney(long id) {
+        TTDApiService service = RetrofitInstance.getService();
+        Call<Void> call = service.deleteJourney(id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(application.getApplicationContext(),"Journey deleted successfully.",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(application.getApplicationContext(),"Failed to delete journey!",Toast.LENGTH_SHORT).show();
+                    Log.e("JourneyRepository", "Failed to delete journey: " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable throwable) {
+                Toast.makeText(application.getApplicationContext(),"Failed to delete journey!",Toast.LENGTH_SHORT).show();
+                Log.e("JourneyRepository", "Failed to delete journey: " + throwable.getMessage());
+            }
+        });
+    }
+
     public void validateJourney(Journey journey, Callback<Void> callback){
         TTDApiService service = RetrofitInstance.getService();
         Call<Void> call = service.validateJourney(journey);
         call.enqueue(callback);
     }
+
 
 }

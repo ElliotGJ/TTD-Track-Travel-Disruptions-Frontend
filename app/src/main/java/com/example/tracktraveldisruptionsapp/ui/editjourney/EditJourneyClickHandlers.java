@@ -4,19 +4,27 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
 import com.example.tracktraveldisruptionsapp.R;
 import com.example.tracktraveldisruptionsapp.databinding.ActivityEditJourneyBinding;
 import com.example.tracktraveldisruptionsapp.model.Journey;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivity;
 import com.example.tracktraveldisruptionsapp.ui.main.MainActivityViewModel;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Set;
+
+import static android.content.ContentValues.TAG;
 
 public class EditJourneyClickHandlers {
 
@@ -41,7 +49,69 @@ public class EditJourneyClickHandlers {
 
     public void onSaveClicked(View view) {
         journey.setDays(selectedDays);
-        viewModel.updateJourney(journey);
+        // Retrieve input values
+        String departureCrs = binding.fromInput.getText().toString();
+        String destinationCrs = binding.toInput.getText().toString();
+        String userSelectedTime = journey.getDepartureTime();
+
+        // Validate user inputs
+        if (departureCrs.isEmpty()) {
+            Toast.makeText(context, "Please select a departure station", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Departure station is empty");
+            return;
+        }
+
+        if (destinationCrs.isEmpty()) {
+            Toast.makeText(context, "Please select a destination station", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Destination station is empty");
+            return;
+        }
+
+        if (selectedDays.isEmpty()) {
+            Toast.makeText(context, "Please select at least one day for the journey", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Frequency is empty");
+            return;
+        }
+
+        if (userSelectedTime == null || userSelectedTime.isEmpty()) {
+            Toast.makeText(context, "Please select a departure time", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Departure time is not set");
+            return;
+        }
+
+        journey.setOriginCRS(departureCrs);
+        journey.setDestinationCRS(destinationCrs);
+
+        validateJourneyAndSubmit(journey);
+    }
+
+    private void validateJourneyAndSubmit(@NonNull Journey journey) {
+        viewModel.validateJourney(journey, new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    // If the journey is valid, add the journey
+                    viewModel.addJourney(journey);
+                } else {
+                    // If no route is found
+                    Toast.makeText(context, "No route found for the selected stations. Please try different stations.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // If validation fails
+                Toast.makeText(context, "Failed to validate journey. Please try again later", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Failed to validate journey", t);
+            }
+        });
+    }
+
+
+
+    public void onDeleteClicked(View view) {
+        Log.e("Delete", "Delete journey: " + journey.getJourneyID());
+        viewModel.deleteJourney(journey.getJourneyID());
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
@@ -70,7 +140,7 @@ public class EditJourneyClickHandlers {
         }
     }
 
-    private DayOfWeek getDayOfWeekFromButton(Button button) {
+    public DayOfWeek getDayOfWeekFromButton(Button button) {
         int id = button.getId();
         if (id == R.id.button_mon) return DayOfWeek.MONDAY;
         if (id == R.id.button_tue) return DayOfWeek.TUESDAY;
@@ -92,7 +162,7 @@ public class EditJourneyClickHandlers {
         setDayButtonColor(binding.buttonSun, DayOfWeek.SUNDAY);
     }
 
-    private void setDayButtonColor(Button button, DayOfWeek day) {
+    public void setDayButtonColor(Button button, DayOfWeek day) {
         button.setTextColor(selectedDays.contains(day) ? Color.parseColor("#38A3A5") : Color.WHITE);
     }
 }

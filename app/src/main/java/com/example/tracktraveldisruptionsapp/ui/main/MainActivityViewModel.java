@@ -9,7 +9,6 @@ import com.example.tracktraveldisruptionsapp.model.JourneyRepository;
 import org.jetbrains.annotations.NotNull;
 import retrofit2.Call;
 import retrofit2.Callback;
-
 import java.util.List;
 
 public class MainActivityViewModel extends AndroidViewModel {
@@ -30,8 +29,14 @@ public class MainActivityViewModel extends AndroidViewModel {
         journeyRepository.postJourneys(journey);
     }
 
-    public void updateJourney(Journey journey) {
-        journeyRepository.updateJourney(journey);
+    public void updateJourney(Long id, Journey journey) {
+        journeyRepository.updateJourney(id , journey);
+    }
+    public void deleteJourney( long id) {
+        journeyRepository.deleteJourney(id);
+    }
+    public void validateJourney(Journey journey, Callback<Void> callback){
+        journeyRepository.validateJourney(journey, callback);
     }
 
     public void validateJourney(Journey journey, Callback<Void> callback){

@@ -16,7 +16,6 @@ public class Journey extends BaseObservable implements Parcelable {
 
     @SerializedName("id")
     private Long journeyID;
-
     private Long userId;
     private Boolean notificationsEnabled;
     private String originCRS;
@@ -37,16 +36,20 @@ public class Journey extends BaseObservable implements Parcelable {
 
     public Journey() {
     }
-
     protected Journey(Parcel in) {
+        if (in.readByte() == 0) {
+            journeyID = null;
+        } else {
+            journeyID = in.readLong();
+        }
         byte tmpNotificationsEnabled = in.readByte();
         notificationsEnabled = tmpNotificationsEnabled == 0 ? null : tmpNotificationsEnabled == 1;
         originCRS = in.readString();
         destinationCRS = in.readString();
+        days = (Set<DayOfWeek>) in.readSerializable();
         departureTime = in.readString();
-        journeyLegs = in.createTypedArrayList(JourneyLeg.CREATOR); // Parcelable for journey legs
+        journeyLegs = in.createTypedArrayList(JourneyLeg.CREATOR);
     }
-
     public static final Creator<Journey> CREATOR = new Creator<Journey>() {
         @Override
         public Journey createFromParcel(Parcel in) {
@@ -58,6 +61,8 @@ public class Journey extends BaseObservable implements Parcelable {
             return new Journey[size];
         }
     };
+
+
 
     public void setUserId(Long userId) {
         this.userId = userId;
@@ -129,20 +134,29 @@ public class Journey extends BaseObservable implements Parcelable {
         return journeyLegs;
     }
 
+    public Long getJourneyID() {
+        return journeyID;
+    }
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(@NonNull Parcel dest, int flags) {
+    public void writeToParcel(Parcel dest, int flags) {
+        if (journeyID == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(journeyID);
+        }
         dest.writeByte((byte) (notificationsEnabled == null ? 0 : notificationsEnabled ? 1 : 2));
         dest.writeString(originCRS);
         dest.writeString(destinationCRS);
+        dest.writeSerializable((java.io.Serializable) days);
         dest.writeString(departureTime);
-        dest.writeTypedList(journeyLegs); // Parcelable for journey legs
+        dest.writeTypedList(journeyLegs);
     }
-
     @Override
     public String toString() {
         return "Journey{" +
@@ -157,7 +171,4 @@ public class Journey extends BaseObservable implements Parcelable {
                 '}';
     }
 
-    public Long getJourneyID() {
-        return journeyID;
-    }
 }
