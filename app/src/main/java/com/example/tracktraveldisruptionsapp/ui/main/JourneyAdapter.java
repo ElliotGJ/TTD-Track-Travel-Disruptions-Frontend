@@ -46,9 +46,10 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
     }
 
     public JourneyAdapter(List<BackendMap> journeys, Context context) {
-        this.journeys = journeys;
+        this.journeys = journeys != null ? journeys : new ArrayList<>();
         this.context = context;
     }
+
 
     @NonNull
     @NotNull
@@ -107,9 +108,6 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
 
     @Override
     public int getItemCount() {
-        if(journeys == null){
-            return 0;
-        }
         return journeys.size();
     }
 
@@ -178,10 +176,12 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         }
     }
 
-    public void updateJourneys(ArrayList<BackendMap> newJourneys) {
-        this.journeys.clear();
-        this.journeys.addAll(newJourneys);
-        notifyDataSetChanged();
+    public void updateJourneys(List<BackendMap> newJourneys) {
+        if (newJourneys != null) {
+            this.journeys.clear();
+            this.journeys.addAll(newJourneys);
+            notifyDataSetChanged();
+        }
     }
 
     private String getStationName(String crs){
@@ -198,13 +198,4 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
         Station station = Arrays.stream(stations).filter(s-> s.getCrs().equals(crs)).findAny().get();
         return station.getStation_name();
     }
-
-//    private void setStationTextView(String departure, String destination,JourneyViewHolder view){
-//        view.itemLayoutBinding.cityTo.setText(destination);
-//        view.itemLayoutBinding.toText.setText(destination);
-//        view.itemLayoutBinding.fromText.setText(departure);
-//
-//    }
-
-
 }
