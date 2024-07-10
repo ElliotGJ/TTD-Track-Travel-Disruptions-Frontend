@@ -1,8 +1,11 @@
 package com.example.tracktraveldisruptionsapp.ui.main;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.tracktraveldisruptionsapp.R;
@@ -28,7 +35,7 @@ import java.io.InputStreamReader;
 import java.time.DayOfWeek;
 import java.util.*;
 
-public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyViewHolder>{
+public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyViewHolder> {
 
 
     List<BackendMap> journeys;
@@ -38,7 +45,7 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
     private static OnClickListener onClickListener;
 
 
-    public JourneyAdapter(List<BackendMap> journeys, Context context,View.OnClickListener editClickListener) {
+    public JourneyAdapter(List<BackendMap> journeys, Context context, View.OnClickListener editClickListener) {
         this.journeys = journeys;
         this.context = context;
         this.editClickListener = editClickListener;
@@ -55,37 +62,42 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
     @NotNull
     @Override
     public JourneyViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int i) {
-        ItemLayoutMainBinding binding = ItemLayoutMainBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        ItemLayoutMainBinding binding = ItemLayoutMainBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new JourneyViewHolder(binding);
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     @Override
     public void onBindViewHolder(@NonNull @NotNull JourneyViewHolder journeyView, int position) {
         BackendMap journey = journeys.get(position);
         if (journey != null) {
             journeyView.itemLayoutBinding.setJourney(journey.getJourneyDTO());
-            frequencyColourSetter(journey.getJourneyDTO().getDays(),journeyView);
+            frequencyColourSetter(journey.getJourneyDTO().getDays(), journeyView);
 
 
-            if (journey.getRailDataDTO() != null ) {
-                if(journey.getRailDataDTO().getEtd() != null) {
+            if (journey.getRailDataDTO() != null) {
+
+                if (journey.getRailDataDTO().getEtd() != null) {
                     journeyView.itemLayoutBinding.setRaildata(journey.getRailDataDTO());
                     String std = journey.getRailDataDTO().getStd();
                     String etd = journey.getRailDataDTO().getEtd();
                     imageSetter(std, etd, journeyView);
+
+
                 }
-            } else if(journey.getRailDataDTO() == null) {
+            } else if (journey.getRailDataDTO() == null) {
                 // Set default or empty values for views that depend on RailDataDTO
                 journeyView.itemLayoutBinding.journeyLineImg.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.pendinginfo));
                 journeyView.itemLayoutBinding.serviceInfo.setText("No Rail Data Available");
-                String departureName=  getStationName(journey.getJourneyDTO().getOriginCRS());
+                String departureName = getStationName(journey.getJourneyDTO().getOriginCRS());
                 String destinationName = getStationName(journey.getJourneyDTO().getDestinationCRS());
-                journey.setRailDataDTO(new RailDataDTO(null,journey.getJourneyDTO().getOriginCRS(),departureName,
-                        journey.getJourneyDTO().getDestinationCRS(),destinationName,null,null,null,null,
-                        null,null,null,null,null,null,null,null));
-                Log.d("RAILDATASET",journey.getRailDataDTO().toString());
+                journey.setRailDataDTO(new RailDataDTO(null, journey.getJourneyDTO().getOriginCRS(), departureName,
+                        journey.getJourneyDTO().getDestinationCRS(), destinationName, null, null, null, null,
+                        null, null, null, null, null, null, null, null));
+                Log.d("RAILDATASET", journey.getRailDataDTO().toString());
                 journeyView.itemLayoutBinding.setRaildata(journey.getRailDataDTO());
+
 
 
                 //setStationTextView(departureName,destinationName,journeyView);
