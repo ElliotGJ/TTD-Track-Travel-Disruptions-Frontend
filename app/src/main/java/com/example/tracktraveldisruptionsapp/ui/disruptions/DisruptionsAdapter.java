@@ -43,12 +43,12 @@ public class DisruptionsAdapter extends RecyclerView.Adapter<DisruptionsAdapter.
         binding = disruptionsViewHolder.disruptionsBinding;
         binding.setRailData(railData);
         imageSetter(binding.statusPic,railData.getEtd(),railData.getStd());
-        textSetter(binding.description,binding.etd,binding.eta,railData.getEta(),railData.getSta(),railData.getEtd(),railData.getCancelReason(),railData.getDelayReason());
+        textSetter(binding.description,binding.etd,binding.eta,railData.getStd(),railData.getEta(),railData.getSta(),railData.getEtd(),railData.getCancelReason(),railData.getDelayReason());
 
 
     }
 
-    private void textSetter(TextView description, TextView etdTV, TextView etaTV,String eta,String sta, String etd, String cancelReason, String delayReason) {
+    private void textSetter(TextView description, TextView etdTV, TextView etaTV,String std,String eta,String sta, String etd, String cancelReason, String delayReason) {
         if(etd == null){
             description.setText("Delay information is only avaliable within 2 hours of departure time!");
         }else if(etd.equalsIgnoreCase("On time")){
@@ -60,10 +60,16 @@ public class DisruptionsAdapter extends RecyclerView.Adapter<DisruptionsAdapter.
         }else if(delayReason!=null){
             etdTV.setTextColor(Color.RED);
             description.setText(delayReason);
+        }else if(!etd.equals(std)){
+            etdTV.setTextColor(Color.RED);
+            description.setText("Train has been delayed!");
         }
 
         if(eta != null) {
-            if (eta.equalsIgnoreCase("On time")) {
+            if(cancelReason!= null){
+                etaTV.setTextColor(Color.RED);
+                journeysRailData.get(0).setEta("Cancelled");
+            }else if (eta.equalsIgnoreCase("On time")) {
                 etaTV.setTextColor(Color.parseColor("#4bae4f"));
             } else if (!eta.equals(sta)) {
                 etaTV.setTextColor(Color.RED);

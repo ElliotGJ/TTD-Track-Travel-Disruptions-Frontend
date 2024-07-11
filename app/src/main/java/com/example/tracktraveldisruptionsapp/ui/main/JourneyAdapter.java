@@ -46,7 +46,8 @@ public class JourneyAdapter extends RecyclerView.Adapter<JourneyAdapter.JourneyV
     }
 
     public JourneyAdapter(List<BackendMap> journeys, Context context) {
-        this.journeys = journeys != null ? journeys : new ArrayList<>();
+       // this.journeys = journeys != null ? journeys : new ArrayList<>();
+        this.journeys = journeys;
         this.context = context;
     }
 
